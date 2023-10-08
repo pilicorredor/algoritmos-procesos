@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
 function Navbar() {
   return (
@@ -20,11 +21,11 @@ function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
-              <Link className="nav-link active" aria-current="page" to = '/'>Inicio</Link>
-              <Link className="nav-link" to = '/Round_Robin'>Round Robin</Link>
-              <Link className="nav-link" to = '/FCFS'>First-come First-Served</Link>
-              <Link className="nav-link" to = '/SJF'>Shortest Job First</Link>
-              <Link className="nav-link" to = '/SRTF'>Short Remaining Time First</Link>
+              <NavLink className="nav-link" to = '/algoritmos-procesos/'> Inicio </NavLink>
+              <NavLink className="nav-link" to = '/algoritmos-procesos/Round_Robin'> Round Robin </NavLink>
+              <NavLink className="nav-link" to = '/algoritmos-procesos/FCFS'> First-come First-Served </NavLink>
+              <NavLink className="nav-link" to = '/algoritmos-procesos/SJF'> Shortest Job First </NavLink>
+              <NavLink className="nav-link" to = '/algoritmos-procesos/SRTF'> Short Remaining Time First</NavLink>
             </div>
           </div>
         </div>
