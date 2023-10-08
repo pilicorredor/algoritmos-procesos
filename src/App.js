@@ -15,11 +15,11 @@ function App() {
       <BrowserRouter>
       <Navbar />
         <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/Round_Robin' element={<RR/>}/>
-          <Route path='/SJF' element={<SJF/>}/>
-          <Route path='/SRTF' element={<SRTF/>}/>
-          <Route path='/FCFS' element={<FCFS/>}/>
+          <Route path='/algoritmos-procesos/' element={<Home/>}/>
+          <Route path='/algoritmos-procesos/Round_Robin' element={<RR/>}/>
+          <Route path='/algoritmos-procesos/SJF' element={<SJF/>}/>
+          <Route path='/algoritmos-procesos/SRTF' element={<SRTF/>}/>
+          <Route path='/algoritmos-procesos/FCFS' element={<FCFS/>}/>
         </Routes>
       </BrowserRouter>
     </div>
