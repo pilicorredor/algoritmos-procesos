@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/algoritmos-procesos/static/css/main.1201ee62.css",
-    "main.js": "/algoritmos-procesos/static/js/main.db2adc03.js",
+    "main.js": "/algoritmos-procesos/static/js/main.e1c16f6d.js",
     "static/js/787.c5ac4e1a.chunk.js": "/algoritmos-procesos/static/js/787.c5ac4e1a.chunk.js",
     "index.html": "/algoritmos-procesos/index.html",
     "main.1201ee62.css.map": "/algoritmos-procesos/static/css/main.1201ee62.css.map",
-    "main.db2adc03.js.map": "/algoritmos-procesos/static/js/main.db2adc03.js.map",
+    "main.e1c16f6d.js.map": "/algoritmos-procesos/static/js/main.e1c16f6d.js.map",
     "787.c5ac4e1a.chunk.js.map": "/algoritmos-procesos/static/js/787.c5ac4e1a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1201ee62.css",
-    "static/js/main.db2adc03.js"
+    "static/js/main.e1c16f6d.js"
   ]
 }
