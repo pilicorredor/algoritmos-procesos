@@ -7,7 +7,7 @@ function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
         <div className="container-fluid">
-          <Link className="navbar-brand" to = '/'>Simulador</Link>
+          <Link className="navbar-brand" to = '/algoritmos-procesos/'>Simulador</Link>
           <button
             className="navbar-toggler"
             type="button"
