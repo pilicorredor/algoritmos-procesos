@@ -1,4 +1,8 @@
 body {
+  background-image: url('images/background.jpg'); /* Ruta de la imagen de fondo */
+  background-size: cover; /* Ajusta la imagen al tamaño de la ventana del navegador */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-attachment: fixed; /* Fija la imagen en su posición, lo que crea un efecto de paralaje */
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
