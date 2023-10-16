@@ -1,0 +1,87 @@
+/*PEN STYLES*/
+* {
+  box-sizing: border-box;
+}
+
+/* Ultimos estilos */
+
+.customCard {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  box-shadow: 2px 5px 7px -1px rgb(19, 19, 19);
+  line-height: 1.4;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 25vh;
+  height: 35vh;
+}
+.cardContent {
+  position: relative;
+  background-color: blue;
+  width: 100%;
+}
+
+.cardContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: blueviolet;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardImage {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.2s;
+  width: 100%;
+  height: 100%;
+}
+
+.cardTitle {
+  height: 50px;
+  width: 100%;
+  background-color: black;
+  padding-top: 5px;
+}
+
+.cardDetails {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -100%;
+  margin: auto;
+  transition: left 0.2s;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 10px;
+  width: 100%;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 10px 0;
+}
+.title {
+  height: 10%;
+}
+.description {
+  height: 60%;
+}
+
+.customCard:hover .cardImage {
+  transform: scale(1.3) rotate(3deg);
+}
+
+.customCard:hover .cardDetails {
+  left: 0%;
+}
