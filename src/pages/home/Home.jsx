@@ -10,7 +10,7 @@ const cards = [
     title: 'Algoritmo RR',
     link: '/algoritmos-procesos/Round_Robin',
     description:
-      'Así se vería una pequeña descripción del algoritmo, aunque tocaría poco texto para que quede bien en la card si no pues queda feito, aunque creo que con este texto ya se explica bien el algoritmo',
+      'Así se vería una pequeña descripción del algoritmo',
     buttonLabel: 'Ingresar',
   },
   {

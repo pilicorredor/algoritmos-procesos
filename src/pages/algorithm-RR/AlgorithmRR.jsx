@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { Queue } from '../../utilities/Queue'
 
 const RoundRobin = ({numero}) => {
   console.log("el numero que viene es: ", numero)
+  useEffect(() => {
+    const queue = new Queue();
+    queue.enqueue(1);
+    queue.enqueue(2);
+    queue.enqueue(3);
+    queue.enqueue(10);
+    console.log("La cola es: ", queue.print());
+  }, []);
  // const quantum = 3;
   // let [tasks] = useState([10, 5, 8, 12]); // Tareas como constante
   // let [result, setResult] = useState([]);
