@@ -1,55 +1,73 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Queue } from '../../utilities/Queue'
 
-const RoundRobin = ({numero}) => {
-  console.log("el numero que viene es: ", numero)
+const quantum = 3;
+let global_time = -1;
+let queue = new Queue();
+let n = 0;
+
+const processes = [
+  { process_name: "Proceso P1", arrival_time: 0, execution_time: 7},
+  { process_name: "Proceso P2", arrival_time: 1, execution_time: 3},
+  { process_name: "Proceso P3", arrival_time: 2, execution_time: 4},
+  { process_name: "Proceso P4", arrival_time: 4, execution_time: 2},
+  { process_name: "Proceso P5", arrival_time: 5, execution_time: 4}
+];
+
+//Funcion que ordena los procesos segun el tiempo de llegada
+function ordenar_procesos() {
+  processes.sort((a, b) => a.arrival_time - b.arrival_time);
+  global_time += processes[0].arrival_time; //-1
+}
+
+//Funcion para agregar los procesos a la cola, solo aquellos que tiene el tiempo de llegada mas corto que el quantum
+function adicionar_cola_principio(){
+  for (let index = 0; index < processes.length; index++) {
+      let aux = quantum + processes[0].arrival_time;
+      if (processes[index].arrival_time < aux) {
+        queue.enqueue(processes[index])
+        global_time++;
+        n++;
+      }
+    }
+    console.log(global_time)    
+}
+
+const RoundRobin = () => {
   useEffect(() => {
-    const queue = new Queue();
-    queue.enqueue(1);
-    queue.enqueue(2);
-    queue.enqueue(3);
-    queue.enqueue(10);
-    console.log("La cola es: ", queue.print());
+    ordenar_procesos()
+    adicionar_cola_principio()
+    
+    let current_process;
+
+    for (let index = queue.size(); index <= 5; index++) {
+      if(global_time >= quantum-1) {
+        current_process = queue.peek()
+        console.log('Tiempo: ', global_time, 'current process: ', current_process)
+        if (current_process.execution_time > quantum) {
+          if(current_process.execution_time === quantum) {
+            queue.dequeue()
+          } else {
+            current_process.execution_time -= quantum;
+            queue.dequeue();
+            queue.enqueue(current_process);
+          }
+        } else if (n < processes.length) { //ya se arreglo este problema
+          if (processes[n].arrival_time === global_time){
+            queue.enqueue(processes[n])
+            n++;
+            }
+          }
+        global_time++;
+      }
+    }
+
+    console.log("tiempo: ", global_time ,"cola: ", queue.print())
   }, []);
- // const quantum = 3;
-  // let [tasks] = useState([10, 5, 8, 12]); // Tareas como constante
-  // let [result, setResult] = useState([]);
-  // let [totalTime, setTotalTime] = useState(0);
-
-  // useEffect(() => {
-  //   let n = tasks.length;
-  //   let remainingTime = [...tasks];
-  //   let done = false;
-  //   let currentTime = 0;
-  //   let i = 0
-
-  //   while (!done) {
-  //     done = true;
-
-  //     for (let i = 0; i < n; i++) {
-  //       if (remainingTime[i] > 0) {
-  //         done = false;
-
-  //         let executeTime = Math.min(quantum, remainingTime[i]);
-  //         currentTime += executeTime;
-  //         remainingTime[i] -= executeTime;
-  //         result.push(i);
-
-  //         if (remainingTime[i] > 0) {
-  //           done = false;
-  //         }
-  //       }
-  //     }
-  //   }
-
-  //   setTotalTime(currentTime);
-  //   setResult([...result]);
-  // }, [quantum, tasks, result]);
 
   return (
     <div>
       <h1>Round Robin Scheduling</h1>
-      <p>Total Time: {numero}</p>
       <p>Execution Order:</p>
     </div>
   );
