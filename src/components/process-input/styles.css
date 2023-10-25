@@ -1,0 +1,36 @@
+.processInputContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 30px 50px;
+  gap: 20px;
+  padding: 20px;
+  align-items: flex-start;
+}
+
+.quantumContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.processTableContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.processButtonsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: end;
+  margin-top: 20px;
+}

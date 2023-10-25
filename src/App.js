@@ -9,16 +9,32 @@ import AlgorithmSRTF from './pages/algorithm-SRTF/AlgorithmSRTF';
 import AlgorithmFCFS from './pages/algorithm-FCFS/AlgorithmFCFS';
 
 function App() {
+  // Este es el ejemplo de objeto que se debe enviar para los campos de los inputs
+  // se pueden enviar cuantos campos se requiera siempre respetando el formato
+  const formFields = [
+    { nameField: 'Nombre', typeField: 'Text' },
+    { nameField: 'Tiempo de ingreso', typeField: 'number' },
+    { nameField: 'Tiempo de ejecución', typeField: 'number' },
+  ];
+
+  
+
+  // Estos son los campos para RoundRobin
+  const roundRobinFields = [
+    { nameField: 'Nombre', typeField: 'Text' },
+    { nameField: 'Tiempo de ingreso', typeField: 'number' },
+    { nameField: 'Tiempo de ejecución', typeField: 'number' },
+  ];
+
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
         <Routes>
-
           <Route path="/algoritmos-procesos/" element={<Home />} />
           <Route
             path="/algoritmos-procesos/Round_Robin"
-            element={<AlgorithmRR />}
+            element={<AlgorithmRR formFields={roundRobinFields} />}
           />
           <Route path="/algoritmos-procesos/SJF" element={<AlgorithmSJF />} />
           <Route path="/algoritmos-procesos/SRTF" element={<AlgorithmSRTF />} />
