@@ -17,8 +17,6 @@ function App() {
     { nameField: 'Tiempo de ejecución', typeField: 'number' },
   ];
 
-  
-
   // Estos son los campos para RoundRobin
   const roundRobinFields = [
     { nameField: 'Nombre', typeField: 'Text' },

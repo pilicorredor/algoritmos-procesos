@@ -9,8 +9,7 @@ const cards = [
     imageUrl: images.round_robin,
     title: 'Algoritmo RR',
     link: '/algoritmos-procesos/Round_Robin',
-    description:
-      'Así se vería una pequeña descripción del algoritmo, aunque tocaría poco texto para que quede bien en la card si no pues queda feito, aunque creo que con este texto ya se explica bien el algoritmo',
+    description: '',
     buttonLabel: 'Ingresar',
   },
   {
@@ -37,7 +36,7 @@ const cards = [
 ];
 
 const homeDetails = {
-  title: 'Planificación de proccesos',
+  title: 'Planificación de procesos',
   imageUrl: images.portatil,
   description:
     'La planificación de procesos es una herramienta para que el sistema operativo determine el orden en que se adecua el procesador a los procesos que lo vayan necesitando y a las políticas que se utilizará en la eficiencia del tiempo esperado en el sistema. En este simulador podrás aprender y observar cómo funcionan algunos de los algoritmos más conocidos de planificación de procesos, como el Round Robin (RR), First-come First-Served (FCFS), Shortest Job First (SJF), Short Remaining Time First (SRTF).',
