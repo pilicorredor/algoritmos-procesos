@@ -31,10 +31,16 @@ function adicionar_cola_principio() {
       n++;
     }
   }
-  console.log(global_time);
+  //console.log(global_time);
 }
 
-const RoundRobin = ({ formFields }) => {
+const RoundRobin = ({
+  formFields,
+  algorithmType,
+  handleProcess,
+  processList,
+}) => {
+
   useEffect(() => {
     ordenar_procesos();
     adicionar_cola_principio();
@@ -76,7 +82,11 @@ const RoundRobin = ({ formFields }) => {
     <div>
       <h1>Round Robin Scheduling</h1>
       <p>Execution Order:</p>
-      <ProcessInput formFields={formFields} />
+      <ProcessInput
+        formFields={formFields}
+        algorithmType={algorithmType}
+        handleProcess={handleProcess}
+      />
     </div>
   );
 };

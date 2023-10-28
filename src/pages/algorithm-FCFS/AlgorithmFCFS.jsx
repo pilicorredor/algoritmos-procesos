@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { Queue } from '../../utilities/Queue';
+import ProcessInput from '../../components/process-input/ProcessInput';
 
 let queue = new Queue();
-
-
 
 //Funcion para calcular el tiempo de espera de los procesos
 function calcular_tiempo_espera(procesos) {
@@ -65,7 +64,6 @@ function ejecutar_fcfs(procesos) {
   console.log('Tiempos de retorno: ', tiempos_retorno);
 }
 
-
 const procesos = [
   { process_name: 'Proceso P1', arrival_time: 0, execution_time: 7 },
   { process_name: 'Proceso P2', arrival_time: 1, execution_time: 3 },
@@ -76,10 +74,18 @@ const procesos = [
 
 ejecutar_fcfs(procesos);
 
-const FCFS = () => {
+const FCFS = ({ formFields, algorithmType, handleProcess, processList }) => {
+  // la lista de procesos que necesitas es la que está entrando acá como parámetro processList
   return (
-    <div>First-Come First-Serve</div>
-  )
-}
+    <div>
+      First-Come First-Serve
+      <ProcessInput
+        formFields={formFields}
+        algorithmType={algorithmType}
+        handleProcess={handleProcess}
+      />
+    </div>
+  );
+};
 
-export default FCFS
+export default FCFS;

@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+// Styles
 import './styles.css';
+// Constants
+import { ABBREVIATED_ALGORITHMS } from '../../constants/constants';
 
-const ProcessInput = ({ formFields }) => {
+const ProcessInput = ({ formFields, algorithmType, handleProcess }) => {
   const [quantum, setQuantum] = useState('');
-  const [name, setName] = useState('');
-  const [arrivalTime, setArrivalTime] = useState('');
-  const [executionTime, setExecutionTime] = useState('');
+  const [process_name, set_process_name] = useState('');
+  const [arrival_time, set_arrival_time] = useState('');
+  const [execution_time, set_execution_time] = useState('');
+  const [priority, setPriority] = useState('');
   const [processes, setProcesses] = useState([]);
   const [detailsEnabled, setDetailsEnabled] = useState(false);
+  const [quantumEnabled, setQuantumEnabled] = useState(true);
+
+  const isRoundRobin =
+    algorithmType === ABBREVIATED_ALGORITHMS.ROUND_ROBIN_ALGORITHM;
+  const isFCFS = algorithmType === ABBREVIATED_ALGORITHMS.FCFS_ALGORITHM;
+
+  useEffect(() => {
+    setDetailsEnabled(!isRoundRobin);
+    setQuantumEnabled(isRoundRobin);
+  }, [isRoundRobin]);
 
   const handleAddQuantum = () => {
     if (quantum) {
@@ -22,24 +36,42 @@ const ProcessInput = ({ formFields }) => {
   };
 
   const handleNameChange = (event) => {
-    setName(event.target.value);
+    set_process_name(event.target.value);
   };
 
   const handleArrivalTimeChange = (event) => {
-    setArrivalTime(event.target.value);
+    set_arrival_time(event.target.value);
   };
 
   const handleExecutionTimeChange = (event) => {
-    setExecutionTime(event.target.value);
+    set_execution_time(event.target.value);
+  };
+  const handlePriorityChange = (event) => {
+    setPriority(event.target.value);
   };
 
   const handleAddProcess = () => {
-    if (name && arrivalTime && executionTime) {
-      const newProcess = { name, arrivalTime, executionTime };
+    let requiredFields = [];
+    let newProcess = {};
+
+    if (isRoundRobin) {
+      requiredFields = ['process_name', 'arrival_time', 'execution_time'];
+      newProcess = { process_name, arrival_time, execution_time };
+    } else if (isFCFS) {
+      requiredFields = ['process_name', 'execution_time'];
+      newProcess = { process_name, execution_time, priority };
+    }
+
+    const allFieldsProvided = requiredFields.every(
+      (field) => newProcess[field] !== ''
+    );
+
+    if (allFieldsProvided) {
       setProcesses([...processes, newProcess]);
-      setName('');
-      setArrivalTime('');
-      setExecutionTime('');
+      set_process_name('');
+      set_arrival_time('');
+      set_execution_time('');
+      setPriority('');
     } else {
       alert(
         'Por favor, complete todos los campos antes de agregar un proceso.'
@@ -58,11 +90,12 @@ const ProcessInput = ({ formFields }) => {
 
   const handleExecuteProcesses = () => {
     // Aquí se le enviarán los datos de los procesos al componente que los necesite
+    handleProcess(processes);
   };
 
   return (
     <div className="processInputContainer">
-      {
+      {quantumEnabled && (
         <div className="quantumContainer">
           <input
             type="number"
@@ -72,7 +105,7 @@ const ProcessInput = ({ formFields }) => {
           />
           <button onClick={handleAddQuantum}>Ingresar</button>
         </div>
-      }
+      )}
       {detailsEnabled && (
         <div className="formContainer">
           {formFields.map((field, index) => (
@@ -82,17 +115,21 @@ const ProcessInput = ({ formFields }) => {
               placeholder={field.nameField}
               value={
                 field.nameField === 'Nombre'
-                  ? name
+                  ? process_name
                   : field.nameField === 'Tiempo de ingreso'
-                  ? arrivalTime
-                  : executionTime
+                  ? arrival_time
+                  : field.nameField === 'Tiempo de ejecución'
+                  ? execution_time
+                  : priority
               }
               onChange={
                 field.nameField === 'Nombre'
                   ? handleNameChange
                   : field.nameField === 'Tiempo de ingreso'
                   ? handleArrivalTimeChange
-                  : handleExecutionTimeChange
+                  : field.nameField === 'Tiempo de ejecución'
+                  ? handleExecutionTimeChange
+                  : handlePriorityChange
               }
             />
           ))}
@@ -114,9 +151,10 @@ const ProcessInput = ({ formFields }) => {
             {/* Aquí va la lógica para renderizar los procesos */}
             {processes.map((process, index) => (
               <tr key={index}>
-                <td>{process.name}</td>
-                <td>{process.arrivalTime}</td>
-                <td>{process.executionTime}</td>
+                <td>{process.process_name}</td>
+                {isRoundRobin && <td>{process.arrival_time}</td>}
+                <td>{process.execution_time}</td>
+                {!isRoundRobin && <td>{process.priority}</td>}
                 <td>
                   <button onClick={() => handleDeleteProcess(index)}>
                     Eliminar
