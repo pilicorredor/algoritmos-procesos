@@ -1,0 +1,11 @@
+.process-table {
+    border: 2px solid #ffffff;
+    border-collapse: collapse;
+  }
+  
+  .process-table th,
+  .process-table td {
+    border: 1px solid #000;
+    padding: 8px;
+  }
+  
