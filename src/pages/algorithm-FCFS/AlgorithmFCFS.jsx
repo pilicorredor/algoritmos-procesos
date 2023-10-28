@@ -3,8 +3,6 @@ import { Queue } from '../../utilities/Queue';
 
 let queue = new Queue();
 
-
-
 //Funcion para calcular el tiempo de espera de los procesos
 function calcular_tiempo_espera(procesos) {
   //Inicializamos el tiempo de espera de todos los procesos a 0
