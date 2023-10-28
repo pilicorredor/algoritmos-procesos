@@ -7,6 +7,7 @@ import AlgorithmRR from './pages/algorithm-RR/AlgorithmRR';
 import AlgorithmSJF from './pages/algorithm-SJF/AlgorithmSJF';
 import AlgorithmSRTF from './pages/algorithm-SRTF/AlgorithmSRTF';
 import AlgorithmFCFS from './pages/algorithm-FCFS/AlgorithmFCFS';
+import Message from "./pages/algorithm-SJF/AlgorithmSJF";
 
 function App() {
   // Este es el ejemplo de objeto que se debe enviar para los campos de los inputs
@@ -24,18 +25,20 @@ function App() {
     { nameField: 'Tiempo de ejecución', typeField: 'number' },
   ];
 
+  const shortestTimeFirstFields = [
+    { nameField: 'Nombre', typeField: 'Text' },
+    { nameField: 'Tiempo de ejecución', typeField: 'number' },
+  ];
+
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path="/algoritmos-procesos/" element={<Home />} />
-          <Route
-            path="/algoritmos-procesos/Round_Robin"
-            element={<AlgorithmRR formFields={roundRobinFields} />}
-          />
+          <Route path="/algoritmos-procesos/Round_Robin" element={<AlgorithmRR formFields={roundRobinFields} />}/>
           <Route path="/algoritmos-procesos/SJF" element={<AlgorithmSJF />} />
-          <Route path="/algoritmos-procesos/SRTF" element={<AlgorithmSRTF />} />
+          <Route path="/algoritmos-procesos/SRTF" element={<AlgorithmSRTF formFields={shortestTimeFirstFields} />} />
           <Route path="/algoritmos-procesos/FCFS" element={<AlgorithmFCFS />} />
         </Routes>
       </BrowserRouter>

@@ -6,4 +6,4 @@ const SRTF = () => {
   )
 }
 
-export default SRTF
+export default SRTF;
