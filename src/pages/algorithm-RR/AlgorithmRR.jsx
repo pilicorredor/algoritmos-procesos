@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Queue } from '../../utilities/Queue';
 import ProcessInput from '../../components/process-input/ProcessInput';
 
-const quantum = 3;
+const quantum = 2;
 let global_time = 0;
 let queue = new Queue();
 let n = 0;
@@ -32,12 +32,18 @@ function add_queue_begin() {
   }
 }
 
-function review_process_list() {
-  for (let index = 0; index < quantum; index++) {
+function review_process_list(process) {
+  let quantum2 = quantum;
+  if (process !== undefined) {
+    if (process.execution_time !== quantum) {
+      quantum2 = Math.min(process.execution_time, quantum)
+    }
+  }
+  for (let index = 0; index < quantum2; index++) {
     if(n < processes.length) {
       if (processes[n].arrival_time === global_time) {
         queue.enqueue(processes[n])
-        n++; 
+        n++;  
       }
     }
     global_time++;
@@ -53,20 +59,18 @@ function round_robin() {
     } else {
       console.log('tiempo global: ', global_time)
       console.log(current_process)
-      if(current_process.execution_time < quantum) {
-        global_time += current_process.execution_time;
+      if(current_process.execution_time <= quantum) {
+        review_process_list(current_process);
         current_process.execution_time = 0;
-      } else if(current_process.execution_time >= quantum) {
-        review_process_list();
+      } else if(current_process.execution_time > quantum) {
+        review_process_list(current_process);
         current_process.execution_time -= quantum;
         if(current_process.execution_time !== 0) {
           queue.enqueue(current_process);
         }
       }
     }
-    
   }
-  
 }
 
 const RoundRobin = ({ formFields }) => {
