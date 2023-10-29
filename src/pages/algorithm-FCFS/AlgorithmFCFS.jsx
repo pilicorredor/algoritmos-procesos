@@ -48,11 +48,11 @@ function ejecutar_fcfs(procesos) {
     const proceso = queue.dequeue();
 
     // Ejecutamos el proceso
-    console.log(`Ejecutando el proceso ${proceso.process_name}`);
+  //  console.log(`Ejecutando el proceso ${proceso.process_name}`);
 
     // Esperamos el tiempo de ejecución del proceso
     setTimeout(() => {
-      console.log(`El proceso ${proceso.process_name} ha terminado de ejecutarse`);
+    //  console.log(`El proceso ${proceso.process_name} ha terminado de ejecutarse`);
     }, proceso.execution_time);
   }
 
@@ -61,8 +61,8 @@ function ejecutar_fcfs(procesos) {
   const tiempos_retorno = calcular_tiempo_retorno(procesos, tiempos_espera);
 
   // Mostramos los tiempos de espera y de retorno de los procesos
-  console.log('Tiempos de espera: ', tiempos_espera);
-  console.log('Tiempos de retorno: ', tiempos_retorno);
+  // console.log('Tiempos de espera: ', tiempos_espera);
+  // console.log('Tiempos de retorno: ', tiempos_retorno);
 }
 
 
