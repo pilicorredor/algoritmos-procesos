@@ -15,17 +15,20 @@ const processes = [
   { process_name: "Proceso P5", arrival_time: 5, execution_time: 4 },
 ];
 
-const RoundRobin = ({ formFields }) => {
+const RoundRobin = ({
+  formFields,
+  algorithmType,
+  handleProcess,
+  processList,
+}) => {
   const [process_details, set_process_details] = useState(processes);
 
   useMemo(() => {
     const copie = process_details;
     copie.map((item) => (item.number = 1));
     set_process_details(copie);
-    console.log('copie-----', copie)
+    console.log("copie-----", copie);
   }, [process_details]);
-
- 
 
   //Funcion que ordena los procesos segun el tiempo de llegada
   const order_processes = () => {
@@ -94,7 +97,11 @@ const RoundRobin = ({ formFields }) => {
     <div>
       <h1>Round Robin Scheduling</h1>
       <p>Execution Order:</p>
-      <ProcessInput formFields={formFields} />
+      <ProcessInput
+        formFields={formFields}
+        algorithmType={algorithmType}
+        handleProcess={handleProcess}
+      />
     </div>
   );
 };
