@@ -48,10 +48,10 @@ function main() {
   // Número de procesos
   let n = 5;
 
-  // Matriz para el tiempo de llegada
+  // array para el tiempo de llegada
   let arrival_time = [0, 1, 2, 3, 4];
 
-  // Matriz para el tiempo de ráfaga
+  // array para el tiempo de ejecución
   let burst_time = [4, 3, 1, 2, 5];
 
   // Llamada a la función para encontrar el tiempo de espera
