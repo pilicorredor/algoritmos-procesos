@@ -43,7 +43,7 @@ function calculateWaitingTime(arrival_time, burst_time, n) {
   console.log(`\nTiempo de espera promedio = ${average}`);
 }
 
-// Código principal
+// función para ejecutar con datos quemados
 function main() {
   // Número de procesos
   let n = 5;
@@ -60,6 +60,21 @@ function main() {
 
 // Llamar a la función principal
 main();
+
+/**
+ * PARA RECIBIR DATOS DE FRONT
+ * 
+ * La función: 
+ * 
+ * 'calculateWaitingTime(arrival_time, burst_time, n)' 
+ * 
+ * puede recibir una solicitud con:
+ *
+ *  El número de procesos
+ *  Un array para los tiempos de llegada de cada proceso
+ *  Un array para los tiempos de ejecución
+ * 
+ */
 
 
 const FCFS = () => {
