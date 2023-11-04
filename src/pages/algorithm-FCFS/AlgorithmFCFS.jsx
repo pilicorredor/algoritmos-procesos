@@ -1,78 +1,66 @@
 import React from 'react'
-import { Queue } from '../../utilities/Queue';
 
-let queue = new Queue();
+// Función para calcular el tiempo de espera y el tiempo de espera promedio
+function calculateWaitingTime(arrival_time, burst_time, n) {
+  // Declarar la matriz para el tiempo de espera
+  let waiting_time = new Array(n);
 
-//Funcion para calcular el tiempo de espera de los procesos
-function calcular_tiempo_espera(procesos) {
-  //Inicializamos el tiempo de espera de todos los procesos a 0
-  let tiempos_espera = Array(procesos.length).fill(0);
+  // El tiempo de espera para el primer proceso es 0
+  waiting_time[0] = 0;
 
-  //Calculamos el tiempo de espera de cada proceso
-  for (let i = 1; i < procesos.length; i++) {
-    for (let j = 0; j < i; j++) {
-      tiempos_espera[i] += procesos[j].execution_time;
-    }
+  /**
+   * NP: Numero de Proceso
+   * TL: Tiempo Llegada
+   * TE: Tiempo de Ejecución
+   * TEs: Tiempo Espera
+   */
+
+  // Imprimir el tiempo de espera para el proceso 1
+  console.log("NP\t\tTL\t\tTE\t\tTEs\n\n");
+  console.log(`1\t\t${arrival_time[0]}\t\t${burst_time[0]}\t\t${waiting_time[0]}\n`);
+
+  // Calcular el tiempo de espera para cada proceso a partir de la fórmula dada
+  for (let i = 1; i < n; i++) {
+    waiting_time[i] = (arrival_time[i - 1] + burst_time[i - 1] + waiting_time[i - 1]) - arrival_time[i];
+
+    // Imprimir el tiempo de espera para cada proceso
+    console.log(`${i + 1}\t\t${arrival_time[i]}\t\t${burst_time[i]}\t\t${waiting_time[i]}\n`);
   }
 
-  return tiempos_espera;
+  // Declarar variable para calcular el promedio
+  let average;
+  let sum = 0;
+
+  // Bucle para calcular la suma de todo el tiempo de espera
+  for (let i = 0; i < n; i++) {
+    sum = sum + waiting_time[i];
+  }
+
+  // Encontrar el tiempo de espera promedio dividiéndolo por el número de procesos
+  average = sum / n;
+
+  // Imprimir el tiempo de espera promedio
+  console.log(`\nTiempo de espera promedio = ${average}`);
 }
 
-//Funcion para calcular el tiempo de retorno de los procesos
-function calcular_tiempo_retorno(procesos, tiempos_espera) {
-  //Inicializamos el tiempo de retorno de todos los procesos a 0
-  let tiempos_retorno = Array(procesos.length).fill(0);
+// Código principal
+function main() {
+  // Número de procesos
+  let n = 5;
 
-  //Calculamos el tiempo de retorno de cada proceso
-  for (let i = 0; i < procesos.length; i++) {
-    tiempos_retorno[i] = tiempos_espera[i] + procesos[i].execution_time;
-  }
+  // Matriz para el tiempo de llegada
+  let arrival_time = [0, 1, 2, 3, 4];
 
-  return tiempos_retorno;
+  // Matriz para el tiempo de ráfaga
+  let burst_time = [4, 3, 1, 2, 5];
+
+  // Llamada a la función para encontrar el tiempo de espera
+  calculateWaitingTime(arrival_time, burst_time, n);
 }
 
-//Funcion para ejecutar el algoritmo FCFS
-function ejecutar_fcfs(procesos) {
-  // Ordenamos los procesos segun el tiempo de llegada
-  procesos.sort((a, b) => a.arrival_time - b.arrival_time);
+// Llamar a la función principal
+main();
 
-  // Agregamos los procesos a la cola
-  for (let i = 0; i < procesos.length; i++) {
-    queue.enqueue(procesos[i]);
-  }
-
-  // Ejecutamos los procesos de la cola
-  while (!queue.isEmpty()) {
-    const proceso = queue.dequeue();
-
-    // Ejecutamos el proceso
-    console.log(`Ejecutando el proceso ${proceso.process_name}`);
-
-    // Esperamos el tiempo de ejecución del proceso
-    setTimeout(() => {
-      console.log(`El proceso ${proceso.process_name} ha terminado de ejecutarse`);
-    }, proceso.execution_time);
-  }
-
-  // Calculamos el tiempo de espera y el tiempo de retorno de los procesos
-  const tiempos_espera = calcular_tiempo_espera(procesos);
-  const tiempos_retorno = calcular_tiempo_retorno(procesos, tiempos_espera);
-
-  // Mostramos los tiempos de espera y de retorno de los procesos
-  console.log('Tiempos de espera: ', tiempos_espera);
-  console.log('Tiempos de retorno: ', tiempos_retorno);
-}
-
-
-const procesos = [
-  { process_name: 'Proceso P1', arrival_time: 0, execution_time: 7 },
-  { process_name: 'Proceso P2', arrival_time: 1, execution_time: 3 },
-  { process_name: 'Proceso P3', arrival_time: 2, execution_time: 4 },
-  { process_name: 'Proceso P4', arrival_time: 4, execution_time: 2 },
-  { process_name: 'Proceso P5', arrival_time: 5, execution_time: 4 },
-];
-
-ejecutar_fcfs(procesos);
 
 const FCFS = () => {
   return (
