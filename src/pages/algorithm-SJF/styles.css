@@ -1,11 +1,58 @@
-.process-table {
-    border: 2px solid #ffffff;
-    border-collapse: collapse;
-  }
+
+.allSectionInfo{
+  background-color: aqua;
+}
+.sectionTitle{
+  background-color: azure;
+}
+.content{
+
+}
+.styles.planContent{
+
+}
+.sectionDescription{
+
+}
+
+.simulationContainer{
+
+}
+.textInformation{
+
+}
+.textInformation{
+
+}
+.times{
+
+}
+.textInformation{
+
+}
+
+.row{
+
+}
+.time{
+
+}
+
+.simulationFIFO{
+
+}
+.processStack{
+
+}
+.timeRemaining{
+
+}
+.labelInfo{
+
+}
+.finished{
+
+}
+.simulationButton{
   
-  .process-table th,
-  .process-table td {
-    border: 1px solid #000;
-    padding: 8px;
-  }
-  
+}
