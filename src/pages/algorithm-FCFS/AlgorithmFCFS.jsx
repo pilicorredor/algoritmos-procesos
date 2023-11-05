@@ -1,5 +1,8 @@
 import React from 'react'
 
+const colors = ["#fff0b3", "#d9edf7", "#c6e0f1", "#aed5f0"]
+
+
 // Función para calcular el tiempo de espera y el tiempo de espera promedio
 function calculateWaitingTime(arrival_time, burst_time, n) {
   // Declarar la matriz para el tiempo de espera
@@ -75,6 +78,7 @@ main();
  *  Un array para los tiempos de ejecución
  * 
  */
+
 
 
 const FCFS = () => {
