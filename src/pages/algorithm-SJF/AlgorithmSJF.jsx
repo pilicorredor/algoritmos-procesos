@@ -2,12 +2,33 @@ import styles from './styles.css';
 import {useState} from "react";
 
 function ShortestJobFirst() {
-    const [simulating, setSimulating] = useState(false);
+    
+    /**  simulating es una variable que puede ser verdadera o falsa
+     * y setSimulating es la con la cual vamos modificando
+     * When the setSimulationData function is called with a new value,
+     *  React will re-render the component with the updated simulationData value, 
+     * ensuring that the UI reflects the changes in the state.  **/
+    const [simulating, setSimulating] = useState(false); 
+
+
+     /**simulationData es un array que guarda otros arrays que guarda los datos de los procesos y los procesos
+      * son arrays que contienen [duracion , tiempo de llegada]  **/
     const [simulationData, setSimulationData] = useState([]);
+
+    //ProcessCounter contiene la cantidad de procesos la cantidad de procesos es 3 por defecto
     const [processCount, setProcessCount] = useState(3);
+
+    //executionTimes Guarda los tiempos de ejecucion es un array
     const [executionTimes, setExecutionTimes] = useState([]);
+
+    // CurrentProcess es el proceso que se esta ejecutando en la simulacion, pues la simulacion si esta bien hecha
+    // y pues los procesos se ejecutan de la misma forma que el algoritmo lo pide
     const [currentProcess, setCurrentProcess] = useState(null)
+
+    //
     const [remainingTime, setRemainingTime] = useState(null);
+
+    //Este array se guarda
     const [processOrder, setProcessOrder] = useState([]);
     const [processSimulation, setProcessSimulation] = useState('0');
 
@@ -92,30 +113,22 @@ function ShortestJobFirst() {
     };
 
     return (
-        <div className={styles.allSectionInfo}>
-            <center><h1 className={styles.sectionTitle}>First in, first out (FIFO)</h1></center>
-            <div className={styles.content}>
-                <div className={styles.planContent}>
-                    <div className={styles.sectionDescription}>
-                        <p>El algoritmo de planificación de procesos FIFO (First In First Out), también conocido como FCFS (First Come First Served),
-                            es uno de los algoritmos más simples y fáciles de entender. Como su nombre indica, este algoritmo maneja los procesos en el orden en que
-                            llegan, de manera que el primer proceso que llega es el primero en ser atendido.</p>
-                        <p>El algoritmo FIFO funciona de la siguiente manera: cuando un proceso llega, se añade al final de la cola. El planificador selecciona
-                            siempre el proceso que está al frente de la cola para ejecutarlo. Una vez que un proceso comienza a ejecutarse, continuará haciéndolo
-                            hasta que se complete, independientemente de los otros procesos que puedan llegar mientras se está ejecutando. Cuando el proceso que se
-                            está ejecutando se completa, se elimina de la cola y el próximo proceso en la cola es seleccionado para ejecución.</p>
-                        <p>Este algoritmo es muy simple y fácil de implementar, pero puede no ser el más eficiente en términos de tiempo de respuesta, especialmente
-                            si los procesos que llegan primero requieren mucho tiempo para completarse mientras que los que llegan después son cortos. Esto puede
-                            llevar a lo que se conoce como el problema de la "convoy effect", en el que los procesos cortos tienen que esperar a que se complete
-                            un proceso largo, lo que resulta en un tiempo de espera innecesariamente largo para esos procesos cortos.</p>
+        <div className="allSectionInfo">
+            <center><h1 className="sectionTitle">FIFO CESAR's (FIFO)</h1></center>
+            <div className="content">
+                <div className="planContent">
+                    <div className="sectionDescription">
+                        <p>TEXTO JAJAJJA.</p>
+                        <p>TEXTO TEXTO TEXOT.</p>
+                        <p>ETEXT ETE SEHC TECHTH HT ETE SECH.</p>
                     </div>
-                    <div className={styles.simulationContainer}>
+                    <div className="simulationContainer">
                         <div>
-                            <label className={styles.textInformation}>Cantidad de Procesos:</label>
+                            <label className="textInformation">Cantidad de Procesos:</label>
                             <input type="number" value={processCount} onChange={handleProcessCountChange} />
                         </div>
                         <div>
-                            <label className={styles.textInformation}>Orden de los Procesos:</label>
+                            <label className="textInformation">Orden de los Procesos:</label>
                             <input type="text" value={processOrder} onChange={handleProcessOrderChange} />
                         </div>
                         <div className={styles.times}>

@@ -11,11 +11,6 @@ import AlgorithmFCFS from './pages/algorithm-FCFS/AlgorithmFCFS';
 function App() {
   // Este es el ejemplo de objeto que se debe enviar para los campos de los inputs
   // se pueden enviar cuantos campos se requiera siempre respetando el formato
-  const formFields = [
-    { nameField: 'Nombre', typeField: 'Text' },
-    { nameField: 'Tiempo de ingreso', typeField: 'number' },
-    { nameField: 'Tiempo de ejecución', typeField: 'number' },
-  ];
 
   // Estos son los campos para RoundRobin
   const roundRobinFields = [
@@ -24,10 +19,7 @@ function App() {
     { nameField: 'Tiempo de ejecución', typeField: 'number' },
   ];
 
-  const shortestTimeFirstFields = [
-    { nameField: 'Nombre', typeField: 'Text' },
-    { nameField: 'Tiempo de ejecución', typeField: 'number' },
-  ];
+
 
   return (
     <div className="App">
@@ -37,7 +29,7 @@ function App() {
           <Route path="/algoritmos-procesos/" element={<Home />} />
           <Route path="/algoritmos-procesos/Round_Robin" element={<AlgorithmRR formFields={roundRobinFields} />}/>
           <Route path="/algoritmos-procesos/SJF" element={<AlgorithmSJF />} />
-          <Route path="/algoritmos-procesos/ShortestJobFirst" element={<AlgorithmSRTF formFields={shortestTimeFirstFields} />} />
+          <Route path="/algoritmos-procesos/ShortestJobFirst" element={<AlgorithmSRTF/>} />
           <Route path="/algoritmos-procesos/FCFS" element={<AlgorithmFCFS />} />
         </Routes>
       </BrowserRouter>
