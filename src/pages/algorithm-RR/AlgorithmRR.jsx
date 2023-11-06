@@ -55,7 +55,7 @@ const processes = [
   },
 ];
 
-const processes_copy = [
+const processes_copy_mucura = [
   {
     process_name: "Proceso P1",
     arrival_time: 0,
@@ -103,7 +103,7 @@ const processes_copy = [
   },
 ];
 
-const result_colors = processes_copy.map((process) => ({
+const result_colors = processes_copy_mucura.map((process) => ({
   process_name: process.process_name,
   colors: [],
 }));
@@ -115,7 +115,8 @@ const RoundRobin = ({
   processList,
 }) => {
   console.log("process list: ", processList);
-
+  const processes_copy = structuredClone(processList);
+  console.log("copia arriba: ", processes_copy)
   // const [process_details, set_process_details] = useState([]);
 
   // useMemo(() => {
@@ -169,20 +170,20 @@ const RoundRobin = ({
   //funcion para actualizar los detalles de cada proceso, como el tiempo final, tiempo de espera,
   //tiempo de retorno...
   const update_details = (current_process, global_time) => {
-    current_process.finish_time =
-      global_time + current_process.execution_time - 1;
-    current_process.return_time =
-      current_process.finish_time - current_process.arrival_time + 1;
-    if (current_process.start_time === null) {
-      current_process.start_time = global_time;
-    }
-    for (let index = 0; index < processes.length; index++) {
-      if (processes[index].process_name === current_process.process_name) {
-        current_process.waiting_time =
-          current_process.return_time - processes[index].execution_time;
-      }
-    }
-    console.log(processes_copy);
+    // current_process.finish_time =
+    //   global_time + current_process.execution_time - 1;
+    // current_process.return_time =
+    //   current_process.finish_time - current_process.arrival_time + 1;
+    // if (current_process.start_time === null) {
+    //   current_process.start_time = global_time;
+    // }
+    // for (let index = 0; index < processes_copy.length; index++) {
+    //   if (processes_copy[index].process_name === current_process.process_name) {
+    //     current_process.waiting_time =
+    //       current_process.return_time - processes_copy[index].execution_time;
+    //   }
+    // }
+    console.log('copia abajo: ', processes_copy);
   };
   //Funcion para actualizar el color verde (ejecución) de los procesos en la tabla
   const update_color_green = (current_process, index, green) => {
