@@ -114,29 +114,28 @@ const RoundRobin = ({
   handleProcess,
   processList,
 }) => {
-  console.log("perdio por loca", processList);
+  console.log("process list: ", processList);
+
+  // const [process_details, set_process_details] = useState([]);
+
+  // useMemo(() => {
+  //   const copy_list = processList.map(item => ({
+  //     ...item,
+  //     start_time: null,
+  //     finish_time: null,
+  //     return_time: null,
+  //     waiting_time: null
+  //   }));
   
+  //   set_process_details(copy_list);
+  // }, [processList]);
 
-  const [process_details, set_process_details] = useState([]);
-
-  useMemo(() => {
-    const copy_list = processList.map(item => ({
-      ...item,
-      start_time: null,
-      finish_time: null,
-      return_time: null,
-      waiting_time: null
-    }));
-  
-    set_process_details(copy_list);
-  }, [processList]);
-
-  console.log('----',process_details)
+  // console.log('----',process_details)
 
   //Funcion que ordena los procesos segun el tiempo de llegada
   const order_processes = () => {
-    processes_copy.sort((a, b) => a.arrival_time - b.arrival_time);
-    global_time += processes_copy[0].arrival_time;
+    processes_copy?.sort((a, b) => a.arrival_time - b.arrival_time);
+    global_time += processes_copy[0]?.arrival_time;
   };
 
   //Funcion para agregar los procesos a la cola, solo aquellos que tiene el tiempo de llegada mas corto que el quantum
