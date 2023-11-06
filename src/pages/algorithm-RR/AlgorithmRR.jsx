@@ -39,6 +39,8 @@ const RoundRobin = ({
   algorithmType,
   handleProcess,
   processList,
+  handleQuantum,
+  quantum
 }) => {
 
   useEffect(() => {
@@ -86,6 +88,7 @@ const RoundRobin = ({
         formFields={formFields}
         algorithmType={algorithmType}
         handleProcess={handleProcess}
+        handleQuantum={handleQuantum}
       />
     </div>
   );
