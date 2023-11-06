@@ -95,6 +95,8 @@ const ProcessInput = ({ formFields, algorithmType, handleProcess }) => {
       finish_time: null,
       return_time: null,
       waiting_time: null,
+      arrival_time: parseInt(process.arrival_time),
+      execution_time: parseInt(process.execution_time),
     }));
 
     // Aquí se le enviarán los datos de los procesos al componente que los necesite
