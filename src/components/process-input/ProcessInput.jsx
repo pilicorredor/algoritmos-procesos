@@ -102,7 +102,7 @@ const ProcessInput = ({
     }));
 
     // Aquí se le enviarán los datos de los procesos al componente que los necesite
-    handleQuantum(quantum);
+    quantum && handleQuantum(quantum);
     handleProcess(updatedProcesses);
   };
 
