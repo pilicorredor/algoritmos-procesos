@@ -10,6 +10,8 @@ const RoundRobin = ({
   algorithmType,
   handleProcess,
   processList,
+  handleQuantum,
+  quantum
 }) => {
   const quantum = 4;
   let n = 0;
@@ -190,6 +192,7 @@ const RoundRobin = ({
         formFields={formFields}
         algorithmType={algorithmType}
         handleProcess={handleProcess}
+        handleQuantum={handleQuantum}
       />
     </div>
   );

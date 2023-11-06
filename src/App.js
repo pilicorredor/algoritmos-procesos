@@ -18,6 +18,7 @@ import { ABBREVIATED_ALGORITHMS } from './constants/constants';
 function App() {
   // ESTA ES LA LISTA DE PROCESOS
   const [processList, setProcessList] = useState([]);
+  const [quantum, setQuantum] = useState(0);
 
   // Este es el ejemplo de objeto que se debe enviar para los campos de los inputs
   // se pueden enviar cuantos campos se requiera siempre respetando el formato
@@ -25,6 +26,7 @@ function App() {
     { nameField: 'Nombre', typeField: 'Text' },
     { nameField: 'Tiempo de ingreso', typeField: 'number' },
     { nameField: 'Tiempo de ejecución', typeField: 'number' },
+    { nameField: 'Prioridad', typeField: 'number' },
   ];
 
   // Estos son los campos para RoundRobin
@@ -60,6 +62,8 @@ function App() {
                 algorithmType={ABBREVIATED_ALGORITHMS.ROUND_ROBIN_ALGORITHM}
                 handleProcess={(list) => setProcessList(list)}
                 processList={processList}
+                handleQuantum={(quantum) => setQuantum(quantum)}
+                quantum={quantum}
               />
             }
           />

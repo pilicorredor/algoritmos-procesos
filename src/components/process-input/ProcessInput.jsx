@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
 // Styles
 import './styles.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 // Constants
 import { ABBREVIATED_ALGORITHMS } from '../../constants/constants';
+// Components
+import NeonButton from '../neon-button/NeonButton';
 
-const ProcessInput = ({ formFields, algorithmType, handleProcess }) => {
+const ProcessInput = ({
+  formFields,
+  algorithmType,
+  handleProcess,
+  handleQuantum,
+}) => {
   const [quantum, setQuantum] = useState('');
   const [process_name, set_process_name] = useState('');
   const [arrival_time, set_arrival_time] = useState('');
@@ -51,31 +59,22 @@ const ProcessInput = ({ formFields, algorithmType, handleProcess }) => {
   };
 
   const handleAddProcess = () => {
-    let requiredFields = [];
-    let newProcess = {};
+    if (process_name && execution_time && (isRoundRobin || priority)) {
+      let newProcess = {};
 
-    if (isRoundRobin) {
-      requiredFields = ['process_name', 'arrival_time', 'execution_time'];
-      newProcess = { process_name, arrival_time, execution_time };
-    } else if (isFCFS) {
-      requiredFields = ['process_name', 'execution_time'];
-      newProcess = { process_name, execution_time, priority };
-    }
+      if (isRoundRobin) {
+        newProcess = { process_name, arrival_time, execution_time };
+      } else if (isFCFS) {
+        newProcess = { process_name, execution_time, priority };
+      }
 
-    const allFieldsProvided = requiredFields.every(
-      (field) => newProcess[field] !== ''
-    );
-
-    if (allFieldsProvided) {
       setProcesses([...processes, newProcess]);
       set_process_name('');
       set_arrival_time('');
       set_execution_time('');
       setPriority('');
     } else {
-      alert(
-        'Por favor, complete todos los campos antes de agregar un proceso.'
-      );
+      alert('Por favor, complete todos los campos obligatorios.');
     }
   };
 
@@ -95,11 +94,15 @@ const ProcessInput = ({ formFields, algorithmType, handleProcess }) => {
       finish_time: null,
       return_time: null,
       waiting_time: null,
-      arrival_time: parseInt(process.arrival_time),
+      arrival_time: process.arrival_time
+        ? parseInt(process.arrival_time)
+        : null,
       execution_time: parseInt(process.execution_time),
+      priority: process.priority ? parseInt(process.priority) : null,
     }));
 
     // Aquí se le enviarán los datos de los procesos al componente que los necesite
+    quantum && handleQuantum(quantum);
     handleProcess(updatedProcesses);
   };
 
@@ -113,7 +116,7 @@ const ProcessInput = ({ formFields, algorithmType, handleProcess }) => {
             value={quantum}
             onChange={handleQuantumChange}
           />
-          <button onClick={handleAddQuantum}>Ingresar</button>
+          <NeonButton buttonFunction={handleAddQuantum} label={'Ingresar'} />
         </div>
       )}
       {detailsEnabled && (
@@ -148,13 +151,13 @@ const ProcessInput = ({ formFields, algorithmType, handleProcess }) => {
       )}
       <div className="processTableContainer">
         {/* Esta es la tabla de procesos */}
-        <table>
+        <table className="table table-dark table-hover">
           <thead>
             <tr>
               {formFields.map((field, index) => (
                 <th key={index}>{field.nameField}</th>
               ))}
-              <th>Eliminar</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>

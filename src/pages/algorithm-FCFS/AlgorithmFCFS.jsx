@@ -74,7 +74,7 @@ const procesos = [
 
 ejecutar_fcfs(procesos);
 
-const FCFS = ({ formFields, algorithmType, handleProcess, processList }) => {
+const FCFS = ({ formFields, algorithmType, handleProcess, processList, handleQuantum }) => {
   // la lista de procesos que necesitas es la que está entrando acá como parámetro processList
   return (
     <div>
@@ -83,6 +83,7 @@ const FCFS = ({ formFields, algorithmType, handleProcess, processList }) => {
         formFields={formFields}
         algorithmType={algorithmType}
         handleProcess={handleProcess}
+        handleQuantum={handleQuantum}
       />
     </div>
   );
