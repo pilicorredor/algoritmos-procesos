@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { Queue } from "../../utilities/Queue";
 import ProcessInput from "../../components/process-input/ProcessInput";
 
@@ -12,39 +12,24 @@ const RoundRobin = ({
   processList,
 }) => {
   const quantum = 4;
-
   let n = 0;
 
   console.log("process list: ", processList);
   const processes_copy = structuredClone(processList);
   console.log("copia arriba: ", processes_copy)
-  // const [process_details, set_process_details] = useState([]);
 
-  // useMemo(() => {
-  //   const copy_list = processList.map(item => ({
-  //     ...item,
-  //     start_time: null,
-  //     finish_time: null,
-  //     return_time: null,
-  //     waiting_time: null
-  //   }));
-  
-  //   set_process_details(copy_list);
-  // }, [processList]);
-
-  // console.log('----',process_details)
   const result_colors = processes_copy.map((process) => ({
     process_name: process.process_name,
     colors: [],
   }));
 
-  //Funcion que ordena los procesos segun el tiempo de llegada
+//Funcion que ordena los procesos segun el tiempo de llegada
   const order_processes = () => {
     processes_copy?.sort((a, b) => a.arrival_time - b.arrival_time);
     global_time = parseInt(processes_copy[0]?.arrival_time);
   };
 
-  //Funcion para agregar los procesos a la cola, solo aquellos que tiene el tiempo de llegada mas corto que el quantum
+//Funcion para agregar los procesos a la cola, solo aquellos que tiene el tiempo de llegada mas corto que el quantum
   const add_queue_begin = () => {
     for (let index = 0; index < processes_copy.length; index++) {
       let aux = quantum + processes_copy[0].arrival_time;
@@ -72,7 +57,8 @@ const RoundRobin = ({
       global_time++;
     }
   };
-//funcion para actualizar los detalles de cada proceso, como el tiempo final, tiempo de espera, tiempo de retorno...
+
+//Funcion para actualizar los detalles de cada proceso, como el tiempo final, tiempo de espera, tiempo de retorno...
   const update_details = (current_process, global_time) => {
     current_process.finish_time =
       parseInt(global_time + current_process.execution_time - 1);
@@ -88,7 +74,8 @@ const RoundRobin = ({
       }
     }
   };
-  //Funcion para actualizar el color verde (ejecución) de los procesos en la tabla
+
+//Funcion para actualizar el color verde (ejecución) de los procesos en la tabla
   const update_color_green = (current_process, index, green) => {
     if (current_process.execution_time <= quantum) {
       for (let i = 0; i < current_process.execution_time; i++) {
@@ -100,7 +87,7 @@ const RoundRobin = ({
       }
     }
   };
-  //Funcion para actualizar el color blanco (no han entrado) de los procesos en la tabla
+//Funcion para actualizar el color blanco (no han entrado) de los procesos en la tabla
   const update_color_white = () => {
     let white = "blanco";
     for (let index = 0; index < result_colors.length; index++) {
@@ -113,7 +100,7 @@ const RoundRobin = ({
       }
     }
   };
-  //Funcion para actualizar el color amarillo (espera) de los procesos en la tabla
+//Funcion para actualizar el color amarillo (espera) de los procesos en la tabla
   const update_color_yellow = (current_process, index, yellow) => {
     if (current_process.execution_time <= quantum) {
       for (let i = 0; i < current_process.execution_time; i++) {
@@ -125,7 +112,7 @@ const RoundRobin = ({
       }
     }
   };
-  //Funcion para actualizar el color rojo (terminado) de los procesos en la tabla
+//Funcion para actualizar el color rojo (terminado) de los procesos en la tabla
   const update_color_last_green = (process, green) => {
     let colors = process.colors;
     let last_green = -1;
@@ -145,7 +132,7 @@ const RoundRobin = ({
       }
     }
   };
-  //Funcion para actualizar todos los colores de los procesos en la tabla
+//Funcion para actualizar todos los colores de los procesos en la tabla
   const update_colors = (current_process) => {
     let green = "#verde";
     let yellow = "amarillo";
@@ -166,7 +153,7 @@ const RoundRobin = ({
       }
     }
   };
-  //Función principal
+//Función principal
   const round_robin = () => {
     let current_process;
     while (!queue.isEmpty()) {
@@ -191,7 +178,6 @@ const RoundRobin = ({
     console.log("colors ", result_colors);
   };
   
-
   order_processes();
   add_queue_begin();
   round_robin();
