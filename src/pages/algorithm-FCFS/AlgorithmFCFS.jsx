@@ -62,7 +62,7 @@ function firstComeFirstServeAlgorithm() {
   const sum2 = turnAroundTime.reduce((acc, n) => acc + n, 0);
   const averageTurnAroundTime = sum2 / numberOfProcess;
 
-  // Log or return the results as needed for your API.
+  
   console.log("FCFS Scheduling Algorithm : ");
   console.log(
 //    "ProcessId   BurstTime   ArrivalTime   FinishTime   WaitingTime   TurnAroundTime"
