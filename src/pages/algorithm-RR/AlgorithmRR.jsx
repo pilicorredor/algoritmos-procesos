@@ -55,7 +55,7 @@ const processes = [
   },
 ];
 
-const processes2 = [
+const processes_copy = [
   {
     process_name: "Proceso P1",
     arrival_time: 0,
@@ -103,7 +103,7 @@ const processes2 = [
   },
 ];
 
-const result_colors = processes.map((process) => ({
+const result_colors = processes_copy.map((process) => ({
   process_name: process.process_name,
   colors: [],
 }));
@@ -135,16 +135,16 @@ const RoundRobin = ({
 
   //Funcion que ordena los procesos segun el tiempo de llegada
   const order_processes = () => {
-    processes.sort((a, b) => a.arrival_time - b.arrival_time);
-    global_time += processes[0].arrival_time;
+    processes_copy.sort((a, b) => a.arrival_time - b.arrival_time);
+    global_time += processes_copy[0].arrival_time;
   };
 
   //Funcion para agregar los procesos a la cola, solo aquellos que tiene el tiempo de llegada mas corto que el quantum
   const add_queue_begin = () => {
-    for (let index = 0; index < processes.length; index++) {
-      let aux = quantum + processes[0].arrival_time;
-      if (processes[index].arrival_time < aux) {
-        queue.enqueue(processes[index]);
+    for (let index = 0; index < processes_copy.length; index++) {
+      let aux = quantum + processes_copy[0].arrival_time;
+      if (processes_copy[index].arrival_time < aux) {
+        queue.enqueue(processes_copy[index]);
         n++;
       }
     }
@@ -158,9 +158,9 @@ const RoundRobin = ({
       }
     }
     for (let index = 0; index < quantum2; index++) {
-      if (n < processes.length) {
-        if (processes[n].arrival_time === global_time) {
-          queue.enqueue(processes[n]);
+      if (n < processes_copy.length) {
+        if (processes_copy[n].arrival_time === global_time) {
+          queue.enqueue(processes_copy[n]);
           n++;
         }
       }
@@ -177,13 +177,13 @@ const RoundRobin = ({
     if (current_process.start_time === null) {
       current_process.start_time = global_time;
     }
-    for (let index = 0; index < processes2.length; index++) {
-      if (processes2[index].process_name === current_process.process_name) {
+    for (let index = 0; index < processes.length; index++) {
+      if (processes[index].process_name === current_process.process_name) {
         current_process.waiting_time =
-          current_process.return_time - processes2[index].execution_time;
+          current_process.return_time - processes[index].execution_time;
       }
     }
-    console.log(processes);
+    console.log(processes_copy);
   };
   //Funcion para actualizar el color verde (ejecución) de los procesos en la tabla
   const update_color_green = (current_process, index, green) => {
@@ -201,9 +201,9 @@ const RoundRobin = ({
   const update_color_white = () => {
     let white = "blanco";
     for (let index = 0; index < result_colors.length; index++) {
-      for (let j = 0; j < processes.length; j++) {
-        if (result_colors[index].process_name === processes[j].process_name) {
-          for (let k = processes[j].arrival_time; k > 0; k--) {
+      for (let j = 0; j < processes_copy.length; j++) {
+        if (result_colors[index].process_name === processes_copy[j].process_name) {
+          for (let k = processes_copy[j].arrival_time; k > 0; k--) {
             result_colors[index].colors[k - 1] = white;
           }
         }
@@ -253,10 +253,10 @@ const RoundRobin = ({
         update_color_yellow(current_process, index, yellow);
       }
     }
-    for (let index = 0; index < processes.length; index++) {
-      if (processes[index].execution_time === 0) {
+    for (let index = 0; index < processes_copy.length; index++) {
+      if (processes_copy[index].execution_time === 0) {
         for (let i = 0; i < result_colors.length; i++) {
-          if (result_colors[i].process_name === processes[index].process_name) {
+          if (result_colors[i].process_name === processes_copy[index].process_name) {
             update_color_last_green(result_colors[i], green);
           }
         }
