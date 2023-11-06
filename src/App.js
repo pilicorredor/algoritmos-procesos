@@ -28,9 +28,9 @@ function App() {
         <Routes>
           <Route path="/algoritmos-procesos/" element={<Home />} />
           <Route path="/algoritmos-procesos/Round_Robin" element={<AlgorithmRR formFields={roundRobinFields} />}/>
-          <Route path="/algoritmos-procesos/SJF" element={<AlgorithmSJF />} />
-          <Route path="/algoritmos-procesos/ShortestJobFirst" element={<AlgorithmSRTF/>} />
           <Route path="/algoritmos-procesos/FCFS" element={<AlgorithmFCFS />} />
+          <Route path="/algoritmos-procesos/SJF" element={<AlgorithmSJF />} />
+          <Route path="/algoritmos-procesos/SRTF" element={<AlgorithmSRTF/>} />
         </Routes>
       </BrowserRouter>
     </div>

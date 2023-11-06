@@ -1,40 +1,44 @@
 .allSectionInfo{
-  background-color: rgb(105, 82, 82);
-  position: fixed;
-  width: 100%; /*esto hace que cubra everything y no se vea ese feo cosito blanco*/
-  height: 100%;
-  color: white;
-}
-.content{
+    background-color: inherit;
+    position: fixed;
+    width: 100%; /*esto hace que cubra everything y no se vea ese feo cosito blanco*/
+    height: 95%;
+    overflow: auto;
+    color: rgb(255, 255, 255);
 }
 .sectionTitle{
-
+    color: red;
+}
+.content{
+    background-color: rgba(86, 95, 105, 0.348);
+    display: flex; /*contiene a planContent y Simulation*/
 }
 .sectionDescription{
-  font-weight: 300;
+    font-weight: 500;
+    width: 50%;
 }
-.simulationContainer{
-
-  background-color: #000000;
+.planContent{
+    overflow: auto;
 }
-.styles.planContent{
-
+.simulationContainer{ /*Este otro flex container*/
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: inherit;
+    padding: 10px;
 }
-
-
-
-.textInformation{
-
-}
-.textInformation{
-
-}
-.times{
-
+.flex-container{
+    flex: 1;
 }
 .textInformation{
-
+    background-color: rgb(27, 150, 187);
+    margin: 10px;
 }
+.executionTimes{
+    background-color: bisque;
+    flex: 1;
+}
+
 
 .row{
 
@@ -44,20 +48,21 @@
 }
 
 .simulationFIFO{
+    background-color: yellow;
 
 }
 .processStack{
-
+    background-color: green;
 }
 .timeRemaining{
-
+    background-color: rgb(178, 178, 178);
 }
 .labelInfo{
-
+    background-color: blueviolet;
 }
 .finished{
-
+    background-color: #12ff00;
 }
 .simulationButton{
-
+    background-color: yellow;
 }
