@@ -1,68 +1,85 @@
 import React from 'react'
 
-const colors = ["#fff0b3", "#d9edf7", "#c6e0f1", "#aed5f0"]
+function getProcessData() {
 
+  //datos quemados
+  const numberOfProcess = 3;
+  const burstTime = [20,4,3]; 
+  const arrivalTime = [0,1,3];
+  const processId = [];
+  let st = "P";
 
-// Función para calcular el tiempo de espera y el tiempo de espera promedio
-function calculateWaitingTime(arrival_time, burst_time, n) {
-  // Declarar la matriz para el tiempo de espera
-  let waiting_time = new Array(n);
-
-  // El tiempo de espera para el primer proceso es 0
-  waiting_time[0] = 0;
-
-  /**
-   * NP: Numero de Proceso
-   * TL: Tiempo Llegada
-   * TE: Tiempo de Ejecución
-   * TEs: Tiempo Espera
-   */
-
-  // Imprimir el tiempo de espera para el proceso 1
-  console.log("NP\t\tTL\t\tTE\t\tTEs\n\n");
-  console.log(`1\t\t${arrival_time[0]}\t\t${burst_time[0]}\t\t${waiting_time[0]}\n`);
-
-  // Calcular el tiempo de espera para cada proceso a partir de la fórmula dada
-  for (let i = 1; i < n; i++) {
-    waiting_time[i] = (arrival_time[i - 1] + burst_time[i - 1] + waiting_time[i - 1]) - arrival_time[i];
-
-    // Imprimir el tiempo de espera para cada proceso
-    console.log(`${i + 1}\t\t${arrival_time[i]}\t\t${burst_time[i]}\t\t${waiting_time[i]}\n`);
+  for (let i = 0; i < numberOfProcess; i++) {
+    processId[i] = st + i;
   }
 
-  // Declarar variable para calcular el promedio
-  let average;
-  let sum = 0;
+  return { numberOfProcess, processId, burstTime, arrivalTime };
+}
 
-  // Bucle para calcular la suma de todo el tiempo de espera
-  for (let i = 0; i < n; i++) {
-    sum = sum + waiting_time[i];
+function sortAccordingArrivalTime(at, bt, pid) {
+  let swapped;
+  for (let i = 0; i < at.length; i++) {
+    swapped = false;
+    for (let j = 0; j < at.length - i - 1; j++) {
+      if (at[j] > at[j + 1]) {
+        [at[j], at[j + 1]] = [at[j + 1], at[j]];
+        [bt[j], bt[j + 1]] = [bt[j + 1], bt[j]];
+        [pid[j], pid[j + 1]] = [pid[j + 1], pid[j]];
+        swapped = true;
+      }
+    }
+    if (!swapped) {
+      break;
+    }
+  }
+}
+
+function firstComeFirstServeAlgorithm() {
+  const { numberOfProcess, processId, burstTime, arrivalTime } = getProcessData();
+
+  let finishTime = new Array(numberOfProcess).fill(0);
+  let bt = burstTime.slice();
+  let at = arrivalTime.slice();
+  let pid = processId.slice();
+  let waitingTime = new Array(numberOfProcess);
+  let turnAroundTime = new Array(numberOfProcess);
+
+  sortAccordingArrivalTime(at, bt, pid);
+
+  finishTime[0] = at[0] + bt[0];
+  turnAroundTime[0] = finishTime[0] - at[0];
+  waitingTime[0] = turnAroundTime[0] - bt[0];
+
+  for (let i = 1; i < numberOfProcess; i++) {
+    finishTime[i] = bt[i] + finishTime[i - 1];
+    turnAroundTime[i] = finishTime[i] - at[i];
+    waitingTime[i] = turnAroundTime[i] - bt[i];
   }
 
-  // Encontrar el tiempo de espera promedio dividiéndolo por el número de procesos
-  average = sum / n;
+  const sum = waitingTime.reduce((acc, n) => acc + n, 0);
+  const averageWaitingTime = sum / numberOfProcess;
 
-  // Imprimir el tiempo de espera promedio
-  console.log(`\nTiempo de espera promedio = ${average}`);
+  const sum2 = turnAroundTime.reduce((acc, n) => acc + n, 0);
+  const averageTurnAroundTime = sum2 / numberOfProcess;
+
+  // Log or return the results as needed for your API.
+  console.log("FCFS Scheduling Algorithm : ");
+  console.log(
+//    "ProcessId   BurstTime   ArrivalTime   FinishTime   WaitingTime   TurnAroundTime"
+    "PId           BT           AT          FT          WT         TAT"
+  );
+  for (let i = 0; i < numberOfProcess; i++) {
+    console.log(
+      `${pid[i]}             ${bt[i]}            ${at[i]}          ${finishTime[i]}           ${waitingTime[i]}         ${turnAroundTime[i]}`
+    );
+  }
+  console.log("Promedio tiempo de espera:", averageWaitingTime);
+  console.log("Promedio tiempo de respuesta:", averageTurnAroundTime)
 }
 
-// función para ejecutar con datos quemados
-function main() {
-  // Número de procesos
-  let n = 5;
+firstComeFirstServeAlgorithm();
 
-  // array para el tiempo de llegada
-  let arrival_time = [0, 1, 2, 3, 4];
 
-  // array para el tiempo de ejecución
-  let burst_time = [4, 3, 1, 2, 5];
-
-  // Llamada a la función para encontrar el tiempo de espera
-  calculateWaitingTime(arrival_time, burst_time, n);
-}
-
-// Llamar a la función principal
-main();
 
 /**
  * PARA RECIBIR DATOS DE FRONT
