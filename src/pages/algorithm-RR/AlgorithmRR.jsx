@@ -11,11 +11,9 @@ const RoundRobin = ({
   handleProcess,
   processList,
   handleQuantum,
-  quantum
+  quantum,
 }) => {
-  const quantum = 4;
   let n = 0;
-
   console.log("process list: ", processList);
   const processes_copy = structuredClone(processList);
   console.log("copia arriba: ", processes_copy)
@@ -34,7 +32,7 @@ const RoundRobin = ({
 //Funcion para agregar los procesos a la cola, solo aquellos que tiene el tiempo de llegada mas corto que el quantum
   const add_queue_begin = () => {
     for (let index = 0; index < processes_copy.length; index++) {
-      let aux = quantum + processes_copy[0].arrival_time;
+      const aux = quantum + processes_copy[0].arrival_time;
       if (processes_copy[index].arrival_time < aux) {
         queue.enqueue(processes_copy[index]);
         n++;
@@ -43,13 +41,13 @@ const RoundRobin = ({
   };
 //Funcion para agregar los procesos que comienzan en un tiempo despues del quantum
   const review_process_list = (process) => {
-    let quantum2 = quantum;
+    let quantum_copy = quantum;
     if (process !== undefined) {
       if (process.execution_time !== quantum) {
-        quantum2 = Math.min(process.execution_time, quantum);
+        quantum_copy = Math.min(process.execution_time, quantum);
       }
     }
-    for (let index = 0; index < quantum2; index++) {
+    for (let index = 0; index < quantum_copy; index++) {
       if (n < processes_copy.length) {
         if (processes_copy[n].arrival_time === global_time) {
           queue.enqueue(processes_copy[n]);
@@ -91,7 +89,7 @@ const RoundRobin = ({
   };
 //Funcion para actualizar el color blanco (no han entrado) de los procesos en la tabla
   const update_color_white = () => {
-    let white = "blanco";
+    let white = "#FFFFFF";
     for (let index = 0; index < result_colors.length; index++) {
       for (let j = 0; j < processes_copy.length; j++) {
         if (result_colors[index].process_name === processes_copy[j].process_name) {
@@ -136,8 +134,8 @@ const RoundRobin = ({
   };
 //Funcion para actualizar todos los colores de los procesos en la tabla
   const update_colors = (current_process) => {
-    let green = "#verde";
-    let yellow = "amarillo";
+    let green = "#00FF00";
+    let yellow = "#FFFF33";
     for (let index = 0; index < result_colors.length; index++) {
       if (result_colors[index].process_name === current_process.process_name) {
         update_color_green(current_process, index, green);
