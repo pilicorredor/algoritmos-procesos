@@ -2,111 +2,8 @@ import React, { useMemo, useState } from "react";
 import { Queue } from "../../utilities/Queue";
 import ProcessInput from "../../components/process-input/ProcessInput";
 
-const quantum = 4;
 let global_time = 0;
 let queue = new Queue();
-let n = 0;
-
-const processes = [
-  {
-    process_name: "Proceso P1",
-    arrival_time: 0,
-    execution_time: 7,
-    start_time: null,
-    finish_time: null,
-    return_time: null,
-    waiting_time: null,
-  },
-  {
-    process_name: "Proceso P2",
-    arrival_time: 1,
-    execution_time: 3,
-    start_time: null,
-    finish_time: null,
-    return_time: null,
-    waiting_time: null,
-  },
-  {
-    process_name: "Proceso P3",
-    arrival_time: 2,
-    execution_time: 4,
-    start_time: null,
-    finish_time: null,
-    return_time: null,
-    waiting_time: null,
-  },
-  {
-    process_name: "Proceso P4",
-    arrival_time: 4,
-    execution_time: 2,
-    start_time: null,
-    finish_time: null,
-    return_time: null,
-    waiting_time: null,
-  },
-  {
-    process_name: "Proceso P5",
-    arrival_time: 5,
-    execution_time: 4,
-    start_time: null,
-    finish_time: null,
-    return_time: null,
-    waiting_time: null,
-  },
-];
-
-const processes_copy_mucura = [
-  {
-    process_name: "Proceso P1",
-    arrival_time: 0,
-    execution_time: 7,
-    start_time: null,
-    finish_time: null,
-    return_time: null,
-    waiting_time: null,
-  },
-  {
-    process_name: "Proceso P2",
-    arrival_time: 1,
-    execution_time: 3,
-    start_time: null,
-    finish_time: null,
-    return_time: null,
-    waiting_time: null,
-  },
-  {
-    process_name: "Proceso P3",
-    arrival_time: 2,
-    execution_time: 4,
-    start_time: null,
-    finish_time: null,
-    return_time: null,
-    waiting_time: null,
-  },
-  {
-    process_name: "Proceso P4",
-    arrival_time: 4,
-    execution_time: 2,
-    start_time: null,
-    finish_time: null,
-    return_time: null,
-    waiting_time: null,
-  },
-  {
-    process_name: "Proceso P5",
-    arrival_time: 5,
-    execution_time: 4,
-    start_time: null,
-    finish_time: null,
-    return_time: null,
-    waiting_time: null,
-  },
-];
-
-const result_colors = processes_copy_mucura.map((process) => ({
-  process_name: process.process_name,
-  colors: [],
-}));
 
 const RoundRobin = ({
   formFields,
@@ -114,6 +11,10 @@ const RoundRobin = ({
   handleProcess,
   processList,
 }) => {
+  const quantum = 4;
+
+  let n = 0;
+
   console.log("process list: ", processList);
   const processes_copy = structuredClone(processList);
   console.log("copia arriba: ", processes_copy)
@@ -132,11 +33,15 @@ const RoundRobin = ({
   // }, [processList]);
 
   // console.log('----',process_details)
+  const result_colors = processes_copy.map((process) => ({
+    process_name: process.process_name,
+    colors: [],
+  }));
 
   //Funcion que ordena los procesos segun el tiempo de llegada
   const order_processes = () => {
     processes_copy?.sort((a, b) => a.arrival_time - b.arrival_time);
-    global_time += processes_copy[0]?.arrival_time;
+    global_time = parseInt(processes_copy[0]?.arrival_time);
   };
 
   //Funcion para agregar los procesos a la cola, solo aquellos que tiene el tiempo de llegada mas corto que el quantum
@@ -149,7 +54,7 @@ const RoundRobin = ({
       }
     }
   };
-
+//Funcion para agregar los procesos que comienzan en un tiempo despues del quantum
   const review_process_list = (process) => {
     let quantum2 = quantum;
     if (process !== undefined) {
@@ -167,23 +72,21 @@ const RoundRobin = ({
       global_time++;
     }
   };
-  //funcion para actualizar los detalles de cada proceso, como el tiempo final, tiempo de espera,
-  //tiempo de retorno...
+//funcion para actualizar los detalles de cada proceso, como el tiempo final, tiempo de espera, tiempo de retorno...
   const update_details = (current_process, global_time) => {
-    // current_process.finish_time =
-    //   global_time + current_process.execution_time - 1;
-    // current_process.return_time =
-    //   current_process.finish_time - current_process.arrival_time + 1;
-    // if (current_process.start_time === null) {
-    //   current_process.start_time = global_time;
-    // }
-    // for (let index = 0; index < processes_copy.length; index++) {
-    //   if (processes_copy[index].process_name === current_process.process_name) {
-    //     current_process.waiting_time =
-    //       current_process.return_time - processes_copy[index].execution_time;
-    //   }
-    // }
-    console.log('copia abajo: ', processes_copy);
+    current_process.finish_time =
+      parseInt(global_time + current_process.execution_time - 1);
+    current_process.return_time =
+      parseInt(current_process.finish_time - current_process.arrival_time+1);
+    if (current_process.start_time === null) {
+      parseInt(current_process.start_time = global_time);
+    }
+    for (let index = 0; index < processes_copy.length; index++) {
+      if (processes_copy[index].process_name === current_process.process_name) {
+        current_process.waiting_time =
+        parseInt(current_process.return_time - processList[index].execution_time);
+      }
+    }
   };
   //Funcion para actualizar el color verde (ejecución) de los procesos en la tabla
   const update_color_green = (current_process, index, green) => {
@@ -273,7 +176,7 @@ const RoundRobin = ({
       } else {
         update_colors(current_process);
         update_details(current_process, global_time);
-        review_process_list(current_process);
+        review_process_list(current_process, global_time);
         if (current_process.execution_time <= quantum) {
           current_process.execution_time = 0;
         } else if (current_process.execution_time > quantum) {
@@ -287,6 +190,7 @@ const RoundRobin = ({
     update_color_white();
     console.log("colors ", result_colors);
   };
+  
 
   order_processes();
   add_queue_begin();
