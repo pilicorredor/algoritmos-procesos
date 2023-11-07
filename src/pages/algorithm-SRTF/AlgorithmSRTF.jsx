@@ -88,11 +88,17 @@ function ShortestRemainingTimeFirst() {
 
   return (
       <div className="allSectionInfo">
-        <center><h1 className="sectionTitle">Short Remaining Time First (SRTF)</h1></center>
+        <center><h1 className="sectionTitle">Shortest Remaining Time First (SRTF)</h1></center>
         <div className="content">
           <div className="planContent">
             <div className="sectionDescription">
-              <p>PARRAFO.</p>
+              <p>SRTF (tiempo restante más corto primero): SRTF es una versión preventiva de SJF.
+                Selecciona el proceso con el menor tiempo de procesamiento restante para su ejecución.
+                Si llega un nuevo proceso con un tiempo de ráfaga más corto que el proceso que se está ejecutando actualmente,
+                se adelanta el proceso que se está ejecutando actualmente y se ejecuta el nuevo proceso.
+                Esta naturaleza preventiva ayuda a garantizar que los procesos más cortos tengan prioridad y puede ayudar a reducir
+                el tiempo promedio de espera de los procesos. Sin embargo, esta característica preventiva también puede generar una mayor
+                cantidad de cambios de contexto, lo que puede generar overhead.</p>
               <p>MAS TEXTO.</p>
               <p>ETE SEHC.</p>
             </div>
