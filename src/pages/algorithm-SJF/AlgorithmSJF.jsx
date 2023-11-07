@@ -152,7 +152,7 @@ function ShortestJobFirst() {
                         </div>
                     </div>
                     <div className='executionTimes'>
-                        <label className='textInformation'>Tiempos de Ejecución:</label>
+                        <label className='textInformation'>Tiempos de Ejecución: (max 20)</label>
                         {Array.from({length: Math.ceil(processCount / 3)}, (_, rowIndex) => (
                             <div key={rowIndex} className='row'>
                                 {Array.from({length: 3}, (_, columnIndex) => {
