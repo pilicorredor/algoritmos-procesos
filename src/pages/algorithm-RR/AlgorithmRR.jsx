@@ -16,7 +16,7 @@ const processes = [
 ];
 
 //Funcion que ordena los procesos segun el tiempo de llegada
-function ordenar_procesos(){
+function ordenar_procesos() {
   processes.sort((a, b) => a.arrival_time - b.arrival_time);
   global_time += processes[0].arrival_time; //-1
 }
