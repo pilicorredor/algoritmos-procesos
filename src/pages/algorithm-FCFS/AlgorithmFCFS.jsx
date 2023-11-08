@@ -3,6 +3,7 @@ import React from 'react'
 function getProcessData() {
 
   //datos quemados
+  //mandar lista con objetos (proceso con numero, tiempo de ejecucion, tiempo de llegada)
   const numberOfProcess = 3;
   const burstTime = [20,4,3]; 
   const arrivalTime = [0,1,3];
