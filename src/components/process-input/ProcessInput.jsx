@@ -181,7 +181,7 @@ const ProcessInput = ({
                   {!isRoundRobin && <td>{process.priority}</td>}
                   <td className="trashCell">
                     <i
-                      class="bi bi-trash-fill trashIcon"
+                      className="bi bi-trash-fill trashIcon"
                       onClick={() => handleDeleteProcess(index)}
                     />
                   </td>
