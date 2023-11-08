@@ -1,9 +1,39 @@
 import React from "react";
 import { Queue } from "../../utilities/Queue";
 import ProcessInput from "../../components/process-input/ProcessInput";
+import DescriptionCard from "../../components/description-card/DescriptionCard";
+import { images } from "../../images";
+import "./styles.css";
 
 let global_time = 0;
 let queue = new Queue();
+const round_robin_details = {
+  title: "Algoritmo Round Robin",
+  imageUrl: images.round_robin,
+  description: (
+    <div>
+      Round Robin es uno de los algoritmos de planificación de
+      procesos más complejos y difíciles, dentro de un sistema operativo asigna
+      a cada proceso una porción de tiempo equitativa y ordenada, tratando a
+      todos los procesos con la misma prioridad. Se define un intervalo de
+      tiempo denominado quantum, cuya duración varía según el sistema. Si el
+      proceso agota su cuantum de tiempo, se elige a otro proceso para ocupar la
+      CPU.
+      <h5>Ventajas:</h5>
+      <ul>
+        <li>Asignación justa y equitativa de tiempo de CPU.</li>
+        <li>Respuesta rápida a las solicitudes de los usuarios.</li>
+        <li>Overhead mínimo.</li>
+      </ul>
+      <h5>Desventajas:</h5>
+      <ul>
+        <li>Ineficiente para procesos de larga duración.</li>
+        <li>Puede haber un retardo significativo para procesos que necesitan mucho tiempo de CPU.</li>
+      </ul>
+    </div>
+  ),
+  videoEmbedCode: "https://www.youtube.com/embed/mY_cO0NhlCw?si=dsuQ2k19A2AjTImn" 
+};
 
 const RoundRobin = ({
   formFields,
@@ -14,22 +44,23 @@ const RoundRobin = ({
   quantum,
 }) => {
   let n = 0;
+  quantum = parseInt(quantum);
   console.log("process list: ", processList);
   const processes_copy = structuredClone(processList);
-  console.log("copia arriba: ", processes_copy)
+  console.log("copia arriba: ", processes_copy);
 
   const result_colors = processes_copy.map((process) => ({
     process_name: process.process_name,
     colors: [],
   }));
 
-//Funcion que ordena los procesos segun el tiempo de llegada
+  //Funcion que ordena los procesos segun el tiempo de llegada
   const order_processes = () => {
     processes_copy?.sort((a, b) => a.arrival_time - b.arrival_time);
     global_time = parseInt(processes_copy[0]?.arrival_time);
   };
 
-//Funcion para agregar los procesos a la cola, solo aquellos que tiene el tiempo de llegada mas corto que el quantum
+  //Funcion para agregar los procesos a la cola, solo aquellos que tiene el tiempo de llegada mas corto que el quantum
   const add_queue_begin = () => {
     for (let index = 0; index < processes_copy.length; index++) {
       const aux = quantum + processes_copy[0].arrival_time;
@@ -39,7 +70,7 @@ const RoundRobin = ({
       }
     }
   };
-//Funcion para agregar los procesos que comienzan en un tiempo despues del quantum
+  //Funcion para agregar los procesos que comienzan en un tiempo despues del quantum
   const review_process_list = (process) => {
     let quantum_copy = quantum;
     if (process !== undefined) {
@@ -58,24 +89,27 @@ const RoundRobin = ({
     }
   };
 
-//Funcion para actualizar los detalles de cada proceso, como el tiempo final, tiempo de espera, tiempo de retorno...
+  //Funcion para actualizar los detalles de cada proceso, como el tiempo final, tiempo de espera, tiempo de retorno...
   const update_details = (current_process, global_time) => {
-    current_process.finish_time =
-      parseInt(global_time + current_process.execution_time - 1);
-    current_process.return_time =
-      parseInt(current_process.finish_time - current_process.arrival_time+1);
+    current_process.finish_time = parseInt(
+      global_time + current_process.execution_time - 1
+    );
+    current_process.return_time = parseInt(
+      current_process.finish_time - current_process.arrival_time + 1
+    );
     if (current_process.start_time === null) {
-      parseInt(current_process.start_time = global_time);
+      parseInt((current_process.start_time = global_time));
     }
     for (let index = 0; index < processes_copy.length; index++) {
       if (processes_copy[index].process_name === current_process.process_name) {
-        current_process.waiting_time =
-        parseInt(current_process.return_time - processList[index].execution_time);
+        current_process.waiting_time = parseInt(
+          current_process.return_time - processList[index].execution_time
+        );
       }
     }
   };
 
-//Funcion para actualizar el color verde (ejecución) de los procesos en la tabla
+  //Funcion para actualizar el color verde (ejecución) de los procesos en la tabla
   const update_color_green = (current_process, index, green) => {
     if (current_process.execution_time <= quantum) {
       for (let i = 0; i < current_process.execution_time; i++) {
@@ -87,12 +121,14 @@ const RoundRobin = ({
       }
     }
   };
-//Funcion para actualizar el color blanco (no han entrado) de los procesos en la tabla
+  //Funcion para actualizar el color blanco (no han entrado) de los procesos en la tabla
   const update_color_white = () => {
     let white = "#FFFFFF";
     for (let index = 0; index < result_colors.length; index++) {
       for (let j = 0; j < processes_copy.length; j++) {
-        if (result_colors[index].process_name === processes_copy[j].process_name) {
+        if (
+          result_colors[index].process_name === processes_copy[j].process_name
+        ) {
           for (let k = processes_copy[j].arrival_time; k > 0; k--) {
             result_colors[index].colors[k - 1] = white;
           }
@@ -100,7 +136,7 @@ const RoundRobin = ({
       }
     }
   };
-//Funcion para actualizar el color amarillo (espera) de los procesos en la tabla
+  //Funcion para actualizar el color amarillo (espera) de los procesos en la tabla
   const update_color_yellow = (current_process, index, yellow) => {
     if (current_process.execution_time <= quantum) {
       for (let i = 0; i < current_process.execution_time; i++) {
@@ -112,7 +148,7 @@ const RoundRobin = ({
       }
     }
   };
-//Funcion para actualizar el color rojo (terminado) de los procesos en la tabla
+  //Funcion para actualizar el color rojo (terminado) de los procesos en la tabla
   const update_color_last_green = (process, green) => {
     let colors = process.colors;
     let last_green = -1;
@@ -132,7 +168,7 @@ const RoundRobin = ({
       }
     }
   };
-//Funcion para actualizar todos los colores de los procesos en la tabla
+  //Funcion para actualizar todos los colores de los procesos en la tabla
   const update_colors = (current_process) => {
     let green = "#00FF00";
     let yellow = "#FFFF33";
@@ -146,14 +182,16 @@ const RoundRobin = ({
     for (let index = 0; index < processes_copy.length; index++) {
       if (processes_copy[index].execution_time === 0) {
         for (let i = 0; i < result_colors.length; i++) {
-          if (result_colors[i].process_name === processes_copy[index].process_name) {
+          if (
+            result_colors[i].process_name === processes_copy[index].process_name
+          ) {
             update_color_last_green(result_colors[i], green);
           }
         }
       }
     }
   };
-//Función principal
+  //Función principal
   const round_robin = () => {
     let current_process;
     while (!queue.isEmpty()) {
@@ -177,15 +215,21 @@ const RoundRobin = ({
     update_color_white();
     console.log("colors ", result_colors);
   };
-  
+
   order_processes();
   add_queue_begin();
   round_robin();
 
   return (
     <div>
-      <h1>Round Robin Scheduling</h1>
-      <p>Execution Order:</p>
+      <div className="rrCardContainer">
+        <DescriptionCard
+          title={round_robin_details.title}
+          description={round_robin_details.description}
+          homeImageUrl={round_robin_details.imageUrl}
+          videoEmbedCode={round_robin_details.videoEmbedCode}
+        />
+      </div>
       <ProcessInput
         formFields={formFields}
         algorithmType={algorithmType}
