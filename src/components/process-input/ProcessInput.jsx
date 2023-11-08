@@ -125,7 +125,7 @@ const ProcessInput = ({
       {detailsEnabled && (
         <div className="input-box">
           {formFields.map((field, index) => (
-            <div className="input-content">
+            <div key = {index} className="input-content">
               <label className="inputLabel">{field.nameField}</label>
               <input
                 key={index}
