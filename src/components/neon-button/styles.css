@@ -1,20 +1,23 @@
 .neonButton {
     position: relative;
     display: inline-block;
-    padding: 10px 15px;
+    padding: 5px 10px;
     color: #03e9f4;
     text-decoration: none;
     overflow: hidden;
     transition: 0.5s;
     letter-spacing: 3px;
     border: 1px solid #03e9f4;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     background: transparent;
+    min-width: 150px;
+    /* max-width: 220px; */
+    text-align: center;
   }
   
   .neonButton:hover {
     background: #03e9f4;
     color: #fff;
-    box-shadow: 0 0 5px #03e9f4, 0 0 5px #03e9f4, 0 0 5px #03e9f4, 0 0 5px #03e9f4;
+    box-shadow: 0 0 10px #03e9f4;
   }

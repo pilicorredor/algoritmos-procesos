@@ -59,7 +59,7 @@ const ProcessInput = ({
   };
 
   const handleAddProcess = () => {
-    if (process_name && execution_time && (isRoundRobin || priority)) {
+    if (process_name && execution_time) {
       let newProcess = {};
 
       if (isRoundRobin) {
@@ -108,81 +108,101 @@ const ProcessInput = ({
 
   return (
     <div className="processInputContainer">
+      <label className="inputBoxTitle">Ingresa los datos de los procesos</label>
       {quantumEnabled && (
-        <div className="quantumContainer">
+        <div className="input-box">
+          <label className="inputLabel">Quantum</label>
           <input
             type="number"
-            placeholder="Quantum"
+            // placeholder="Quantum"
             value={quantum}
             onChange={handleQuantumChange}
+            className="customInput"
           />
           <NeonButton buttonFunction={handleAddQuantum} label={'Ingresar'} />
         </div>
       )}
       {detailsEnabled && (
-        <div className="formContainer">
+        <div className="input-box">
           {formFields.map((field, index) => (
-            <input
-              key={index}
-              type={field.typeField}
-              placeholder={field.nameField}
-              value={
-                field.nameField === 'Nombre'
-                  ? process_name
-                  : field.nameField === 'Tiempo de ingreso'
-                  ? arrival_time
-                  : field.nameField === 'Tiempo de ejecución'
-                  ? execution_time
-                  : priority
-              }
-              onChange={
-                field.nameField === 'Nombre'
-                  ? handleNameChange
-                  : field.nameField === 'Tiempo de ingreso'
-                  ? handleArrivalTimeChange
-                  : field.nameField === 'Tiempo de ejecución'
-                  ? handleExecutionTimeChange
-                  : handlePriorityChange
-              }
-            />
+            <div className="input-content">
+              <label className="inputLabel">{field.nameField}</label>
+              <input
+                key={index}
+                type={field.typeField}
+                // placeholder={field.nameField}
+                className="customInput"
+                value={
+                  field.nameField === 'Nombre'
+                    ? process_name
+                    : field.nameField === 'Tiempo de ingreso'
+                    ? arrival_time
+                    : field.nameField === 'Tiempo de ejecución'
+                    ? execution_time
+                    : priority
+                }
+                onChange={
+                  field.nameField === 'Nombre'
+                    ? handleNameChange
+                    : field.nameField === 'Tiempo de ingreso'
+                    ? handleArrivalTimeChange
+                    : field.nameField === 'Tiempo de ejecución'
+                    ? handleExecutionTimeChange
+                    : handlePriorityChange
+                }
+              />
+            </div>
           ))}
-          <button onClick={handleAddProcess}>Ingresar proceso</button>
+          <NeonButton
+            buttonFunction={handleAddProcess}
+            label={'Ingresar proceso'}
+          />
         </div>
       )}
-      <div className="processTableContainer">
-        {/* Esta es la tabla de procesos */}
-        <table className="table table-dark table-hover">
-          <thead>
-            <tr>
-              {formFields.map((field, index) => (
-                <th key={index}>{field.nameField}</th>
-              ))}
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* Aquí va la lógica para renderizar los procesos */}
-            {processes.map((process, index) => (
-              <tr key={index}>
-                <td>{process.process_name}</td>
-                {isRoundRobin && <td>{process.arrival_time}</td>}
-                <td>{process.execution_time}</td>
-                {!isRoundRobin && <td>{process.priority}</td>}
-                <td>
-                  <button onClick={() => handleDeleteProcess(index)}>
-                    Eliminar
-                  </button>
-                </td>
+      {processes.length > 0 && (
+        <div className="processTableContainer">
+          {/* Esta es la tabla de procesos */}
+          <table className="table table-dark table-hover">
+            <thead>
+              <tr>
+                {formFields.map((field, index) => (
+                  <th key={index}>{field.nameField}</th>
+                ))}
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        {/* Aquí van los botones de limpiar y ejecutar */}
-        <div className="processButtonsContainer">
-          <button onClick={handleClearProcesses}>Limpiar</button>
-          <button onClick={handleExecuteProcesses}>Ejecutar</button>
+            </thead>
+            <tbody>
+              {/* Aquí va la lógica para renderizar los procesos */}
+              {processes.map((process, index) => (
+                <tr key={index}>
+                  <td>{process.process_name}</td>
+                  {isRoundRobin && <td>{process.arrival_time}</td>}
+                  <td>{process.execution_time}</td>
+                  {!isRoundRobin && <td>{process.priority}</td>}
+                  <td className="trashCell">
+                    <i
+                      class="bi bi-trash-fill trashIcon"
+                      onClick={() => handleDeleteProcess(index)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {/* Aquí van los botones de limpiar y ejecutar */}
+          <div className="processButtonsContainer">
+            <button className="btn btn-danger" onClick={handleClearProcesses}>
+              Limpiar
+            </button>
+            <button
+              className="btn btn-primary"
+              onClick={handleExecuteProcesses}
+            >
+              Ejecutar
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
