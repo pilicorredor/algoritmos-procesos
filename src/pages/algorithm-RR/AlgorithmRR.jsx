@@ -2,6 +2,7 @@ import React from "react";
 import { Queue } from "../../utilities/Queue";
 import ProcessInput from "../../components/process-input/ProcessInput";
 import DescriptionCard from "../../components/description-card/DescriptionCard";
+import ColorsTable from "../../components/colors-table/ColorsTable";
 import { images } from "../../images";
 import "./styles.css";
 
@@ -45,14 +46,22 @@ const RoundRobin = ({
 }) => {
   let n = 0;
   quantum = parseInt(quantum);
-  console.log("process list: ", processList);
   const processes_copy = structuredClone(processList);
-  console.log("copia arriba: ", processes_copy);
+  const result_list = structuredClone(processList);
 
-  const result_colors = processes_copy.map((process) => ({
+  const result_colors = processList.map((process) => ({
     process_name: process.process_name,
     colors: [],
   }));
+//Función para actaulizar los datos de la lista resultado
+  const update_result_list = () => {
+    for (let index = 0; index < processes_copy.length; index++) {
+      result_list[index].finish_time = processes_copy[index].finish_time;
+      result_list[index].return_time = processes_copy[index].return_time;
+      result_list[index].waiting_time = processes_copy[index].waiting_time;
+      result_list[index].start_time = processes_copy[index].start_time;
+    }
+  }
 
   //Funcion que ordena los procesos segun el tiempo de llegada
   const order_processes = () => {
@@ -123,7 +132,7 @@ const RoundRobin = ({
   };
   //Funcion para actualizar el color blanco (no han entrado) de los procesos en la tabla
   const update_color_white = () => {
-    let white = "#FFFFFF";
+    let white = "#000000";
     for (let index = 0; index < result_colors.length; index++) {
       for (let j = 0; j < processes_copy.length; j++) {
         if (
@@ -213,12 +222,15 @@ const RoundRobin = ({
       }
     }
     update_color_white();
-    console.log("colors ", result_colors);
+    update_result_list();
   };
 
   order_processes();
   add_queue_begin();
   round_robin();
+
+  console.log("colors ", result_colors);
+  console.log('result list', result_list)
 
   return (
     <div>
@@ -230,12 +242,17 @@ const RoundRobin = ({
           videoEmbedCode={round_robin_details.videoEmbedCode}
         />
       </div>
+      
       <ProcessInput
         formFields={formFields}
         algorithmType={algorithmType}
         handleProcess={handleProcess}
         handleQuantum={handleQuantum}
       />
+      <div className="processTableContainer">
+        <ColorsTable processes={result_colors} />
+      </div>
+
     </div>
   );
 };
