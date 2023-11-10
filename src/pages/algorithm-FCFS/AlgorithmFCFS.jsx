@@ -123,7 +123,7 @@ const FCFS = ({
   handleQuantum,
 }) => {
 
-  
+  console.log(processList)
   // la lista de procesos que necesitas es la que está entrando acá como parámetro processList
   return (
     <div>
