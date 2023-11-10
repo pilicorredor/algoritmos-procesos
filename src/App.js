@@ -11,7 +11,6 @@ import AlgorithmRR from './pages/algorithm-RR/AlgorithmRR';
 import AlgorithmSJF from './pages/algorithm-SJF/AlgorithmSJF';
 import AlgorithmSRTF from './pages/algorithm-SRTF/AlgorithmSRTF';
 import AlgorithmFCFS from './pages/algorithm-FCFS/AlgorithmFCFS';
-import Message from './pages/algorithm-SJF/AlgorithmSJF';
 // Constants
 import { ABBREVIATED_ALGORITHMS } from './constants/constants';
 
