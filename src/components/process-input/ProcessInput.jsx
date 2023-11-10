@@ -22,12 +22,12 @@ const ProcessInput = ({
   const [detailsEnabled, setDetailsEnabled] = useState(false);
   const [quantumEnabled, setQuantumEnabled] = useState(true);
 
-  const isRoundRobin =
-    algorithmType === ABBREVIATED_ALGORITHMS.ROUND_ROBIN_ALGORITHM;
+  const isRoundRobin = algorithmType === ABBREVIATED_ALGORITHMS.ROUND_ROBIN_ALGORITHM;
   const isFCFS = algorithmType === ABBREVIATED_ALGORITHMS.FCFS_ALGORITHM;
+  const isSRTF = algorithmType === ABBREVIATED_ALGORITHMS.SRTF_ALGORITHM;
 
   useEffect(() => {
-    setDetailsEnabled(!isRoundRobin);
+    setDetailsEnabled(!isRoundRobin); //
     setQuantumEnabled(isRoundRobin);
   }, [isRoundRobin]);
 
@@ -66,6 +66,8 @@ const ProcessInput = ({
         newProcess = { process_name, arrival_time, execution_time };
       } else if (isFCFS) {
         newProcess = { process_name, execution_time, priority };
+      }else if(isSRTF){
+        newProcess = {process_name, arrival_time, execution_time }
       }
 
       setProcesses([...processes, newProcess]);
@@ -177,6 +179,7 @@ const ProcessInput = ({
                 <tr key={index}>
                   <td>{process.process_name}</td>
                   {isRoundRobin && <td>{process.arrival_time}</td>}
+                  {isSRTF && <td>{process.arrival_time}</td>}
                   <td>{process.execution_time}</td>
                   {!isRoundRobin && <td>{process.priority}</td>}
                   <td className="trashCell">

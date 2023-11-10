@@ -44,6 +44,7 @@ function App() {
 
   const shortestTimeFirstFields = [
     { nameField: 'Nombre', typeField: 'Text' },
+    { nameField: 'Tiempo de ingreso', typeField: 'number' },
     { nameField: 'Tiempo de ejecución', typeField: 'number' },
   ];
 
@@ -66,11 +67,20 @@ function App() {
               />
             }
           />
+          
           <Route path="/algoritmos-procesos/SJF" element={<AlgorithmSJF />} />
-          <Route
-            path="/algoritmos-procesos/SRTF"
-            element={<AlgorithmSRTF formFields={shortestTimeFirstFields} />}
+
+
+          <Route path="/algoritmos-procesos/SRTF"
+            element={<AlgorithmSRTF
+              formFields={shortestTimeFirstFields}
+              algorithmType={ABBREVIATED_ALGORITHMS.SRTF_ALGORITHM}
+              handleProcess={(list) => setProcessList(list)}
+              processList={processList}
+            />}
           />
+
+
           <Route
             path="/algoritmos-procesos/FCFS"
             element={

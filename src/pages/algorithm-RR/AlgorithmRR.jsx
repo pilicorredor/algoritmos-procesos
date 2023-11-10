@@ -49,6 +49,8 @@ const RoundRobin = ({
   const processes_copy = structuredClone(processList);
   const result_list = structuredClone(processList);
 
+  console.log(processList)
+
   const result_colors = processList.map((process) => ({
     process_name: process.process_name,
     colors: [],
@@ -228,9 +230,6 @@ const RoundRobin = ({
   order_processes();
   add_queue_begin();
   round_robin();
-
-  console.log("colors ", result_colors);
-  console.log('result list', result_list)
 
   return (
     <div>
