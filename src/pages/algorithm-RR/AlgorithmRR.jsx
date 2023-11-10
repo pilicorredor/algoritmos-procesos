@@ -3,6 +3,7 @@ import { Queue } from "../../utilities/Queue";
 import ProcessInput from "../../components/process-input/ProcessInput";
 import DescriptionCard from "../../components/description-card/DescriptionCard";
 import ColorsTable from "../../components/colors-table/ColorsTable";
+import ResultTable from "../../components/result-table/ResultTable";
 import { images } from "../../images";
 import "./styles.css";
 
@@ -13,13 +14,12 @@ const round_robin_details = {
   imageUrl: images.round_robin,
   description: (
     <div>
-      Round Robin es uno de los algoritmos de planificación de
-      procesos más complejos y difíciles, dentro de un sistema operativo asigna
-      a cada proceso una porción de tiempo equitativa y ordenada, tratando a
-      todos los procesos con la misma prioridad. Se define un intervalo de
-      tiempo denominado quantum, cuya duración varía según el sistema. Si el
-      proceso agota su cuantum de tiempo, se elige a otro proceso para ocupar la
-      CPU.
+      Round Robin es uno de los algoritmos de planificación de procesos más
+      complejos y difíciles, dentro de un sistema operativo asigna a cada
+      proceso una porción de tiempo equitativa y ordenada, tratando a todos los
+      procesos con la misma prioridad. Se define un intervalo de tiempo
+      denominado quantum, cuya duración varía según el sistema. Si el proceso
+      agota su cuantum de tiempo, se elige a otro proceso para ocupar la CPU.
       <h5>Ventajas:</h5>
       <ul>
         <li>Asignación justa y equitativa de tiempo de CPU.</li>
@@ -29,11 +29,15 @@ const round_robin_details = {
       <h5>Desventajas:</h5>
       <ul>
         <li>Ineficiente para procesos de larga duración.</li>
-        <li>Puede haber un retardo significativo para procesos que necesitan mucho tiempo de CPU.</li>
+        <li>
+          Puede haber un retardo significativo para procesos que necesitan mucho
+          tiempo de CPU.
+        </li>
       </ul>
     </div>
   ),
-  videoEmbedCode: "https://www.youtube.com/embed/mY_cO0NhlCw?si=dsuQ2k19A2AjTImn" 
+  videoEmbedCode:
+    "https://www.youtube.com/embed/mY_cO0NhlCw?si=dsuQ2k19A2AjTImn",
 };
 
 const RoundRobin = ({
@@ -53,7 +57,7 @@ const RoundRobin = ({
     process_name: process.process_name,
     colors: [],
   }));
-//Función para actaulizar los datos de la lista resultado
+  //Función para actaulizar los datos de la lista resultado
   const update_result_list = () => {
     for (let index = 0; index < processes_copy.length; index++) {
       result_list[index].finish_time = processes_copy[index].finish_time;
@@ -61,7 +65,7 @@ const RoundRobin = ({
       result_list[index].waiting_time = processes_copy[index].waiting_time;
       result_list[index].start_time = processes_copy[index].start_time;
     }
-  }
+  };
 
   //Funcion que ordena los procesos segun el tiempo de llegada
   const order_processes = () => {
@@ -230,7 +234,7 @@ const RoundRobin = ({
   round_robin();
 
   console.log("colors ", result_colors);
-  console.log('result list', result_list)
+  console.log("result list", result_list);
 
   return (
     <div>
@@ -242,17 +246,24 @@ const RoundRobin = ({
           videoEmbedCode={round_robin_details.videoEmbedCode}
         />
       </div>
-      
+
       <ProcessInput
         formFields={formFields}
         algorithmType={algorithmType}
         handleProcess={handleProcess}
         handleQuantum={handleQuantum}
       />
-      <div className="processTableContainer">
-        <ColorsTable processes={result_colors} />
-      </div>
-
+      {processList.length > 0 && (
+        <div className="customTableContainer alignCenter">
+          <ResultTable resultList={result_list} />
+        </div>
+      )}
+      {processList.length > 0 && (
+        <div className="customTableContainer">
+          <div className="inputBoxTitle">Simulación de los procesos</div>
+          <ColorsTable processes={result_colors} />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,3 +1,10 @@
-.processTableContainer{
-    background-color: "#000000"
+.inputBoxTitle {
+    margin: 20px auto;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+
+.textAlignCenter{
+	text-align: center;
 }
