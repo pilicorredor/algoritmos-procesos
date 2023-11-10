@@ -6,7 +6,7 @@ import Home from './pages/home/Home';
 import AlgorithmRR from './pages/algorithm-RR/AlgorithmRR';
 import AlgorithmSJF from './pages/algorithm-SJF/AlgorithmSJF';
 import AlgorithmSRTF from './pages/algorithm-SRTF/AlgorithmSRTF';
-import AlgorithmFCFS from './pages/algorithm-FCFS/AlgorithmFCFSv2';
+import AlgorithmFCFS from './pages/algorithm-FCFS/AlgorithmFCFS';
 
 function App() {
   // Este es el ejemplo de objeto que se debe enviar para los campos de los inputs
