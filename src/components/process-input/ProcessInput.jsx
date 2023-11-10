@@ -178,7 +178,7 @@ const ProcessInput = ({
                   <td>{process.process_name}</td>
                   {isRoundRobin && <td>{process.arrival_time}</td>}
                   <td>{process.execution_time}</td>
-                  {!isRoundRobin && <td>{process.priority}</td>}
+                  {isFCFS && <td>{process.arrival_time}</td>}
                   <td className="trashCell">
                     <i
                       className="bi bi-trash-fill trashIcon"
