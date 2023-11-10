@@ -1,108 +1,138 @@
-import React from 'react'
+import React from "react";
+import { Queue } from "../../utilities/Queue";
+import ProcessInput from "../../components/process-input/ProcessInput";
+import DescriptionCard from "../../components/description-card/DescriptionCard";
+import { images } from "../../images";
+import "./styles.css";
 
-function getProcessData() {
+const fcfs_details = {
+  title: "Algoritmo First Come - First Served",
+  imageUrl: images.fcfs,
+  description: (
+    <div>
+      En esta, el procesador ejecuta cada proceso
+      hasta que termina, por tanto, los procesos que en cola de procesos
+      preparados permanecerán encolados en el orden en que lleguen hasta que les
+      toque su ejecución. Este método se conoce también como fifo (fist input,
+      first output, primero en llegar primero en salir). Se trata de una
+      política muy simple y sencilla de llevar a la práctica, pero muy pobre en
+      cuanto a su comportamiento. La cantidad de tiempo de espera de cada
+      proceso depende del número de procesos que se encuentren en la cola en el
+      momento de su petición de ejecución y del tiempo que cada uno de ellos
+      tenga en uso al procesador, y es independiente de las necesidades del
+      propio proceso
+      <h5>Características:</h5>
+      <ul>
+        <li>No apropiativa.</li>
+        <li>Es justa, aunque los procesos largos hacen esperar mucho a los cortos.</li>
+        <li>Predecible.</li>
+        <li>El tiempo medio de servicio es muy variable en función del número de procesos y su duración.</li>
+      </ul>
+    </div>
+  ),
+  videoEmbedCode:
+    "https://www.youtube.com/embed/mY_cO0NhlCw?si=dsuQ2k19A2AjTImn",
+};
+let queue = new Queue();
 
-  //datos quemados
-  //mandar lista con objetos (proceso con numero, tiempo de ejecucion, tiempo de llegada)
-  const numberOfProcess = 3;
-  const burstTime = [20,4,3]; 
-  const arrivalTime = [0,1,3];
-  const processId = [];
-  let st = "P";
+//Funcion para calcular el tiempo de espera de los procesos
+function calcular_tiempo_espera(procesos) {
+  //Inicializamos el tiempo de espera de todos los procesos a 0
+  let tiempos_espera = Array(procesos.length).fill(0);
 
-  for (let i = 0; i < numberOfProcess; i++) {
-    processId[i] = st + i;
+  //Calculamos el tiempo de espera de cada proceso
+  for (let i = 1; i < procesos.length; i++) {
+    for (let j = 0; j < i; j++) {
+      tiempos_espera[i] += procesos[j].execution_time;
+    }
   }
 
-  return { numberOfProcess, processId, burstTime, arrivalTime };
+  return tiempos_espera;
 }
 
-function sortAccordingArrivalTime(at, bt, pid) {
-  let swapped;
-  for (let i = 0; i < at.length; i++) {
-    swapped = false;
-    for (let j = 0; j < at.length - i - 1; j++) {
-      if (at[j] > at[j + 1]) {
-        [at[j], at[j + 1]] = [at[j + 1], at[j]];
-        [bt[j], bt[j + 1]] = [bt[j + 1], bt[j]];
-        [pid[j], pid[j + 1]] = [pid[j + 1], pid[j]];
-        swapped = true;
-      }
-    }
-    if (!swapped) {
-      break;
-    }
+//Funcion para calcular el tiempo de retorno de los procesos
+function calcular_tiempo_retorno(procesos, tiempos_espera) {
+  //Inicializamos el tiempo de retorno de todos los procesos a 0
+  let tiempos_retorno = Array(procesos.length).fill(0);
+
+  //Calculamos el tiempo de retorno de cada proceso
+  for (let i = 0; i < procesos.length; i++) {
+    tiempos_retorno[i] = tiempos_espera[i] + procesos[i].execution_time;
   }
+
+  return tiempos_retorno;
 }
 
-function firstComeFirstServeAlgorithm() {
-  const { numberOfProcess, processId, burstTime, arrivalTime } = getProcessData();
+//Funcion para ejecutar el algoritmo FCFS
+function ejecutar_fcfs(procesos) {
+  // Ordenamos los procesos segun el tiempo de llegada
+  procesos.sort((a, b) => a.arrival_time - b.arrival_time);
 
-  let finishTime = new Array(numberOfProcess).fill(0);
-  let bt = burstTime.slice();
-  let at = arrivalTime.slice();
-  let pid = processId.slice();
-  let waitingTime = new Array(numberOfProcess);
-  let turnAroundTime = new Array(numberOfProcess);
-
-  sortAccordingArrivalTime(at, bt, pid);
-
-  finishTime[0] = at[0] + bt[0];
-  turnAroundTime[0] = finishTime[0] - at[0];
-  waitingTime[0] = turnAroundTime[0] - bt[0];
-
-  for (let i = 1; i < numberOfProcess; i++) {
-    finishTime[i] = bt[i] + finishTime[i - 1];
-    turnAroundTime[i] = finishTime[i] - at[i];
-    waitingTime[i] = turnAroundTime[i] - bt[i];
+  // Agregamos los procesos a la cola
+  for (let i = 0; i < procesos.length; i++) {
+    queue.enqueue(procesos[i]);
   }
 
-  const sum = waitingTime.reduce((acc, n) => acc + n, 0);
-  const averageWaitingTime = sum / numberOfProcess;
+  // Ejecutamos los procesos de la cola
+  while (!queue.isEmpty()) {
+    const proceso = queue.dequeue();
 
-  const sum2 = turnAroundTime.reduce((acc, n) => acc + n, 0);
-  const averageTurnAroundTime = sum2 / numberOfProcess;
+    // Ejecutamos el proceso
+    //  console.log(`Ejecutando el proceso ${proceso.process_name}`);
+
+    // Esperamos el tiempo de ejecución del proceso
+    setTimeout(() => {
+      //  console.log(`El proceso ${proceso.process_name} ha terminado de ejecutarse`);
+    }, proceso.execution_time);
+  }
+
+  // Calculamos el tiempo de espera y el tiempo de retorno de los procesos
+  const tiempos_espera = calcular_tiempo_espera(procesos);
+  const tiempos_retorno = calcular_tiempo_retorno(procesos, tiempos_espera);
+
+  // Mostramos los tiempos de espera y de retorno de los procesos
+  // console.log('Tiempos de espera: ', tiempos_espera);
+  // console.log('Tiempos de retorno: ', tiempos_retorno);
+}
+
+const procesos = [
+  { process_name: "Proceso P1", arrival_time: 0, execution_time: 7 },
+  { process_name: "Proceso P2", arrival_time: 1, execution_time: 3 },
+  { process_name: "Proceso P3", arrival_time: 2, execution_time: 4 },
+  { process_name: "Proceso P4", arrival_time: 4, execution_time: 2 },
+  { process_name: "Proceso P5", arrival_time: 5, execution_time: 4 },
+];
+
+ejecutar_fcfs(procesos);
+
+const FCFS = ({
+  formFields,
+  algorithmType,
+  handleProcess,
+  processList,
+  handleQuantum,
+}) => {
 
   
-  console.log("FCFS Scheduling Algorithm : ");
-  console.log(
-//    "ProcessId   BurstTime   ArrivalTime   FinishTime   WaitingTime   TurnAroundTime"
-    "PId           BT           AT          FT          WT         TAT"
-  );
-  for (let i = 0; i < numberOfProcess; i++) {
-    console.log(
-      `${pid[i]}             ${bt[i]}            ${at[i]}          ${finishTime[i]}           ${waitingTime[i]}         ${turnAroundTime[i]}`
-    );
-  }
-  console.log("Promedio tiempo de espera:", averageWaitingTime);
-  console.log("Promedio tiempo de respuesta:", averageTurnAroundTime)
-}
-
-firstComeFirstServeAlgorithm();
-
-
-
-/**
- * PARA RECIBIR DATOS DE FRONT
- * 
- * La función: 
- * 
- * 'calculateWaitingTime(arrival_time, burst_time, n)' 
- * 
- * puede recibir una solicitud con:
- *
- *  El número de procesos
- *  Un array para los tiempos de llegada de cada proceso
- *  Un array para los tiempos de ejecución
- * 
- */
-
-
-
-const FCFS = () => {
+  // la lista de procesos que necesitas es la que está entrando acá como parámetro processList
   return (
-    <div>First-Come First-Serve</div>
-  )
-}
+    <div>
+      <div className="fcfsCardContainer">
+        <DescriptionCard
+          title={fcfs_details.title}
+          description={fcfs_details.description}
+          homeImageUrl={fcfs_details.imageUrl}
+          videoEmbedCode={fcfs_details.videoEmbedCode}
+        />
+      </div>
+      <ProcessInput
+        formFields={formFields}
+        algorithmType={algorithmType}
+        handleProcess={handleProcess}
+        handleQuantum={handleQuantum}
+      />
+    </div>
+  );
+};
 
-export default FCFS
+export default FCFS;
