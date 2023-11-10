@@ -34,12 +34,15 @@ const fcfs_details = {
     "https://www.youtube.com/embed/mY_cO0NhlCw?si=dsuQ2k19A2AjTImn",
 };
 
-function getProcessData(processList) {
+const fcfsalgorithm = ({ formfields }) => {
 
+}
+
+const getProcessData = (processList) => {
   //datos quemados
   //mandar lista con objetos (proceso con numero, tiempo de ejecucion, tiempo de llegada)
   const numberOfProcess = processList.length;
-  const burstTime = processList[0]; 
+  const burstTime = processList[0];
   const arrivalTime = processList[1];
   const processId = processList[2];
   let st = "P";
@@ -119,7 +122,7 @@ const FCFS = ({
   handleQuantum,
 }) => {
 
-  
+
   // la lista de procesos que necesitas es la que está entrando acá como parámetro processList
   return (
     <div>
