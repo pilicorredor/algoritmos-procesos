@@ -9,6 +9,7 @@ import "./styles.css";
 
 let global_time = 0;
 let queue = new Queue();
+
 const round_robin_details = {
   title: "Algoritmo Round Robin",
   imageUrl: images.round_robin,
@@ -40,14 +41,8 @@ const round_robin_details = {
       "https://www.youtube.com/embed/mY_cO0NhlCw?si=dsuQ2k19A2AjTImn",
 };
 
-const RoundRobin = ({
-                      formFields,
-                      algorithmType,
-                      handleProcess,
-                      processList,
-                      handleQuantum,
-                      quantum,
-                    }) => {
+const RoundRobin = ({ formFields, algorithmType, handleProcess, processList, handleQuantum, quantum,}) => {
+
   let n = 0;
   quantum = parseInt(quantum);
   const processes_copy = structuredClone(processList);

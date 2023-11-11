@@ -1,95 +1,111 @@
 import React from "react";
-import { Queue } from "../../utilities/Queue";
 import ProcessInput from "../../components/process-input/ProcessInput";
 import DescriptionCard from "../../components/description-card/DescriptionCard";
 import SRTFTable from "../../components/SRTF-table/SRTF-table";
 import { images } from "../../images";
 import "./styles.css";
 
+
+let executionOrder = [];
+let remainingProcesses = [];
+
 const srtf_details = {
   title: "Algoritmo Shortest Remaining Time First",
   imageUrl: images.srtf,
   description: (
-      <div>
-        Shortest Remaining Time First BLA BLA BLA
-        <h5>Ventajas:</h5>
-        <ul>
-          <li>VENTAJA 1U.</li>
-          <li>VENTAJA 2 rápida a las solicitudes de los usuarios.</li>
-          <li>ventaja 3 mínimo.</li>
-        </ul>
-        <h5>Desventajas:</h5>
-        <ul>
-          <li>IDSADSADAS.</li>
-          <li>DESVENTAJA 2 CPU.</li>
-        </ul>
-      </div>
+    <div>
+      Shortest Remaining Time First BLA BLA BLA
+      <h5>Ventajas:</h5>
+      <ul>
+        <li>VENTAJA 1U.</li>
+        <li>VENTAJA 2 rápida a las solicitudes de los usuarios.</li>
+        <li>ventaja 3 mínimo.</li>
+      </ul>
+      <h5>Desventajas:</h5>
+      <ul>
+        <li>IDSADSADAS.</li>
+        <li>DESVENTAJA 2 CPU.</li>
+      </ul>
+    </div>
   ),
   videoEmbedCode:
-      "https://www.youtube.com/embed/V_jHc_n0p9c?si=JShMm7YR_9EKYzgr&amp;controls=0",
+    "https://www.youtube.com/embed/V_jHc_n0p9c?si=JShMm7YR_9EKYzgr&amp;controls=0",
 };
 
 const SRTF = ({ formFields, algorithmType, handleProcess, processList }) => {
-  // la lista de procesos que necesitas es la que está entrando acá como parámetro processList
 
-  const processes_copy = structuredClone(processList); //Lista de los procesas
-  const result_list = structuredClone(processList); // Lista que regresamos
+  function shortestRemainingTimeFirst(processes) {
+    let processesCopy = processes.slice(); // Create a copy of the processes array to avoid modifying the original
 
-  function calculate_max_burst_time() {
-    let maxqueue = 0;
-    for (let i = 0; i < processes_copy.length; i++) {
-      maxqueue += processes_copy[i].execution_time;
-    }
-    console.log(maxqueue)
-    return maxqueue;
-  }
-
-  let burst_time_queue = new Queue();
-  function put_in_queue() {
-    processes_copy?.sort((a, b) => a.arrival_time - b.arrival_time); //Ordenamos los procesos por comidad
-    let max_burst_time = calculate_max_burst_time()
-    for (let globalTime = 0; globalTime < max_burst_time; globalTime++) {
-      // Iteramos por la cantidad de burst time que haya
-      let process_to_execute = 0; //si hay 100 de burstime un proceso se tendra que ejecutar por cada burst
-      console.log(globalTime)
-      for (let j = 0; j < processes_copy.length; j++) {  //process_copy.length = 5
-
-        if (processes_copy[j].arrival_time <= globalTime) {
-          //Vemos si se puede ejecutar
-          //Aca ya en teoria se esta ejecutando
-          if (processes_copy[j].execution_time < processes_copy[process_to_execute].execution_time) {
-            process_to_execute = j;
-          }
-        }
+    processesCopy.sort((a, b) => {if (a.arrival_time !== b.arrival_time) {  // Sort processes by arrival time and burst time
+        return a.arrival_time - b.arrival_time;
+      } else {
+        return a.execution_time - b.execution_time;
       }
-      burst_time_queue.enqueue(processes_copy[process_to_execute]);
-      processes_copy[process_to_execute].execution_time = processes_copy[process_to_execute].execution_time - 1;
-      console.log(processes_copy[process_to_execute].execution_time);
+    });
+    // Array to store the order of process execution
+
+    // Initialize variables
+    let currentTime = 0;
+    let remainingProcesses = [...processesCopy];
+    let max_loops = 0;
+
+      for (let processListElement of processList) {
+         max_loops += processListElement.execution_time;
+      }
+
+    // Continue scheduling until all processes are executed
+    for (let i = 0; executionOrder.length < max_loops; i++) {
+      // Filter processes that have arrived
+      let arrivedProcesses = remainingProcesses.filter(process => process.arrival_time <= currentTime);
+
+      // If there are arrived processes, find the one with the shortest remaining burst time
+      if (arrivedProcesses.length > 0) {
+        let shortestProcess = arrivedProcesses.reduce((min, process) => {
+          return process.execution_time < min.execution_time ? process : min;
+        });
+        shortestProcess.execution_time -= 1; // Update the burst time of the selected process
+
+        // If the burst time becomes 0, remove the process from the remaining processes
+        if (shortestProcess.execution_time === 0) {
+            let indexToRemove = remainingProcesses.findIndex(process => process.process_name === shortestProcess.process_name);
+            remainingProcesses.splice(indexToRemove, 1);
+        }
+        console.log(executionOrder.length)
+        executionOrder.push(shortestProcess.process_name);
+        // Increment the current time
+        currentTime++;
+      } else {
+        // If no processes have arrived, increment the current time
+        currentTime++;
+      }
     }
+    console.log(executionOrder)
+    return executionOrder;
   }
 
-  put_in_queue();
-  console.log(burst_time_queue);
+
+  let final_array = shortestRemainingTimeFirst(processList);
 
   return (
-      <div>
-        <div className="srtfCardContainer">
-          <DescriptionCard
-              title={srtf_details.title}
-              description={srtf_details.description}
-              homeImageUrl={srtf_details.imageUrl}
-              videoEmbedCode={srtf_details.videoEmbedCode}
-          />
-        </div>
-        <ProcessInput
-            formFields={formFields}
-            algorithmType={algorithmType}
-            handleProcess={handleProcess}
+    <div>
+      <div className="srtfCardContainer">
+        <DescriptionCard
+          title={srtf_details.title}
+          description={srtf_details.description}
+          homeImageUrl={srtf_details.imageUrl}
+          videoEmbedCode={srtf_details.videoEmbedCode}
         />
-        <div className="processTableContainer">
-          <SRTFTable queue={burst_time_queue} />
-        </div>
       </div>
+      <ProcessInput
+        formFields={formFields}
+        algorithmType={algorithmType}
+        handleProcess={handleProcess}
+      />
+      {/*<div className="processTableContainer">*/}
+      {/*    <SRTFTable queue={final_array} />*/}
+      {/*</div>*/}
+    </div>
   );
 };
 
