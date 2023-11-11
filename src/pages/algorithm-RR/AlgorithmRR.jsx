@@ -134,16 +134,27 @@ const RoundRobin = ({
       }
     }
   };
+
+  const update_color_black_before = () => {
+    let black = "#000000";
+    let black_counter = 0;
+    black_counter = processes_copy[0]?.arrival_time;
+    for (let index = 0; index < processes_copy.length; index++) {
+      for (let j = 0; j < black_counter; j++) {
+        result_colors[index].colors.push(black);
+      }
+    }
+  }
   //Funcion para actualizar el color blanco (no han entrado) de los procesos en la tabla
-  const update_color_white = () => {
-    let white = "#000000";
+  const update_color_black_after = () => {
+    let black = "#000000";
     for (let index = 0; index < result_colors.length; index++) {
       for (let j = 0; j < processes_copy.length; j++) {
         if (
           result_colors[index].process_name === processes_copy[j].process_name
         ) {
           for (let k = processes_copy[j].arrival_time; k > 0; k--) {
-            result_colors[index].colors[k - 1] = white;
+            result_colors[index].colors[k - 1] = black;
           }
         }
       }
@@ -207,6 +218,7 @@ const RoundRobin = ({
   //Función principal
   const round_robin = () => {
     let current_process;
+    update_color_black_before();
     while (!queue.isEmpty()) {
       current_process = queue.dequeue();
       if (current_process.execution_time === 0) {
@@ -225,7 +237,7 @@ const RoundRobin = ({
         }
       }
     }
-    update_color_white();
+    update_color_black_after();
     update_result_list();
   };
 
