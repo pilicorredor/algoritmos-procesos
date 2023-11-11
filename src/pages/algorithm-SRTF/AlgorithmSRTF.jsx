@@ -29,20 +29,26 @@ const srtf_details = {
     </div>
   ),
   videoEmbedCode:
-    "https://www.youtube.com/embed/V_jHc_n0p9c?si=JShMm7YR_9EKYzgr&amp;controls=0",
+    "https://www.youtube.com/embed/wx0uNkMI7Lk?si=LfNG3cPCpZLZsP4O",
 };
+
 
 const SRTF = ({ formFields, algorithmType, handleProcess, processList }) => {
 
-  function shortestRemainingTimeFirst(processes) {
-    let processesCopy = processes.slice(); // Create a copy of the processes array to avoid modifying the original
 
+  function shortestRemainingTimeFirst(processes) {
+
+    
+    let processesCopy = processes.slice(); // Create a copy of the processes array to avoid modifying the original
+    console.log(processesCopy)
+    
     processesCopy.sort((a, b) => {if (a.arrival_time !== b.arrival_time) {  // Sort processes by arrival time and burst time
         return a.arrival_time - b.arrival_time;
       } else {
         return a.execution_time - b.execution_time;
       }
     });
+   
     // Array to store the order of process execution
 
     // Initialize variables
@@ -71,7 +77,6 @@ const SRTF = ({ formFields, algorithmType, handleProcess, processList }) => {
             let indexToRemove = remainingProcesses.findIndex(process => process.process_name === shortestProcess.process_name);
             remainingProcesses.splice(indexToRemove, 1);
         }
-        console.log(executionOrder.length)
         executionOrder.push(shortestProcess.process_name);
         // Increment the current time
         currentTime++;
@@ -102,9 +107,9 @@ const SRTF = ({ formFields, algorithmType, handleProcess, processList }) => {
         algorithmType={algorithmType}
         handleProcess={handleProcess}
       />
-      {/*<div className="processTableContainer">*/}
-      {/*    <SRTFTable queue={final_array} />*/}
-      {/*</div>*/}
+      <div className="processTableContainer">
+          <SRTFTable queue={final_array} />
+      </div>
     </div>
   );
 };

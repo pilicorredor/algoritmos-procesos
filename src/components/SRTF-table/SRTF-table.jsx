@@ -1,18 +1,15 @@
 import React from 'react';
+import './styles.css';
 
 const SRTFTable = ({ queue }) => {
   return (
-    <div>
-      <h3>Queue:</h3>
-        {Array.isArray(queue) ? (
-            <ul>
-                {queue.map((item, index) => (
-                    <li key={index}>{item}</li>
+    <div className='SRTF-Table'>
+      <h3>Orden de ejecucion:</h3>
+        <div className="box-container">
+                {queue.map((item, index) => (             
+                    <div className="box" key={index}>{item}</div>
                 ))}
-            </ul>
-        ) : (
-            <p>Queue is not an array.</p>
-        )}
+        </div>
     </div>
   );
 };
