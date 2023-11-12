@@ -245,8 +245,6 @@ const RoundRobin = ({
   add_queue_begin();
   round_robin();
 
-  console.log("colors ", result_colors);
-  console.log("result list", result_list);
 
   return (
     <div>
