@@ -41,7 +41,7 @@ const fcfs_details = {
 
 
 function getProcessData(processList) {
-
+  console.log(processList)
   const numberOfProcess = processList.length;
   const processId =  Array.from(processList, process => process.process_name);
   const arrivalTime = Array.from(processList, process => process.arrival_time);
@@ -102,12 +102,16 @@ function firstComeFirstServeAlgorithm(processList) {
   const sum2 = turnAroundTime.reduce((acc, n) => acc + n, 0);
   const averageTurnAroundTime = sum2 / numberOfProcess;
 
+  const results = []
+
+
   
   console.log("FCFS Scheduling Algorithm : ");
   console.log(
 //    "ProcessId   BurstTime   ArrivalTime   FinishTime   WaitingTime   TurnAroundTime"
     "PId           BT           AT          FT          WT         TAT"
   );
+
   for (let i = 0; i < numberOfProcess; i++) {
     console.log(
       `${pid[i]}             ${bt[i]}            ${at[i]}          ${finishTime[i]}           ${waitingTime[i]}         ${turnAroundTime[i]}`
@@ -116,7 +120,6 @@ function firstComeFirstServeAlgorithm(processList) {
   console.log("Promedio tiempo de espera:", averageWaitingTime);
   console.log("Promedio tiempo de respuesta:", averageTurnAroundTime)
 }
-
 
 const FCFS = ({
   formFields,
