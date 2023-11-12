@@ -4,35 +4,39 @@ import DescriptionCard from "../../components/description-card/DescriptionCard";
 import SRTFTable from "../../components/SRTF-table/SRTF-table";
 import { images } from "../../images";
 import "./styles.css";
+import ResultTable from "../../components/result-table/ResultTable";
 
 
 
 
 const sjf_details = {
-  title: "Algoritmo Shortest Remaining Time First",
+  title: "Algoritmo Shortest Job First",
   imageUrl: images.srtf,
   description: (
       <div>
-        Shortest Remaining Time First BLA BLA BLA
+        El algoritmo "Shortest Job First" (SJF) es un algoritmo de planificación de CPU utilizado en sistemas operativos. También se conoce como "Shortest Job Next" o "SRTF" (Shortest Remaining Time First). SJF asigna la CPU al proceso con el tiempo de ejecución más corto, es decir, el proceso que requerirá menos tiempo para completarse. Puede ser preemptivo o no preemptivo. En su forma no preemptiva, el sistema espera a que el proceso actual en ejecución finalice antes de seleccionar el siguiente proceso más corto. SJF busca minimizar el tiempo de espera y mejorar la eficiencia en la ejecución de procesos al priorizar aquellos con menor tiempo de ejecución.
         <h5>Ventajas:</h5>
         <ul>
-          <li>VENTAJA 1U.</li>
-          <li>VENTAJA 2 rápida a las solicitudes de los usuarios.</li>
-          <li>ventaja 3 mínimo.</li>
+          <li>Minimización del Tiempo de Espera: SJF tiende a minimizar el tiempo de espera promedio al asignar la CPU a procesos más cortos primero. Esto resulta en una menor cantidad de tiempo que los procesos deben pasar en la cola de espera antes de su ejecución.</li>
+          <li>Eficiencia en la Utilización de la CPU: Al priorizar los procesos más cortos, SJF tiende a maximizar la eficiencia en la utilización de la CPU. Los procesos se completan más rápidamente, lo que permite que la CPU esté disponible para nuevos procesos con menor tiempo de ejecución.</li>
+          <li>Optimización del Tiempo Total de Ejecución: SJF, cuando es no preemptivo, puede optimizar el tiempo total de ejecución al ejecutar primero los procesos más cortos. Esto puede llevar a una mayor productividad y a una ejecución más rápida de la carga de trabajo del sistema.</li>
         </ul>
         <h5>Desventajas:</h5>
         <ul>
-          <li>IDSADSADAS.</li>
-          <li>DESVENTAJA 2 CPU.</li>
+          <li>Dificultad en la Estimación de Tiempos de Ejecución: La principal limitación de SJF radica en la necesidad de conocer o estimar con precisión los tiempos de ejecución de cada proceso antes de su ejecución. En la práctica, es difícil predecir con exactitud cuánto tiempo tomará un proceso, y los errores en estas estimaciones pueden llevar a suboptimalidades en la planificación. Además, en entornos dinámicos, donde los tiempos de ejecución pueden cambiar, la precisión de estas estimaciones se vuelve aún más crítica.</li>
+          <li>Problema de Inanición (Starvation): SJF puede causar inanición de procesos más largos si constantemente llegan procesos con tiempos de ejecución más cortos. Los procesos más extensos pueden quedar relegados continuamente, sin la oportunidad de ejecutarse, lo que puede afectar negativamente la equidad en la asignación de recursos.</li>
         </ul>
       </div>
   ),
   videoEmbedCode:
-      "https://www.youtube.com/embed/UOxkGD8qRB4?si=xmRMc3AL-v1oZqIz"
+      "https://www.youtube.com/embed/YyR_FuON6PE?si=nKVmm2xMMnqCQleP"
 };
 
 
 const SRTF = ({ formFields, algorithmType, handleProcess, processList }) => {
+
+
+    const result_list = structuredClone(processList);
 
     function shortestRemainingTimeFirst(processes) {
         let processesCopy = processes.slice(); // Create a copy of the processes array to avoid modifying the original
@@ -72,9 +76,17 @@ const SRTF = ({ formFields, algorithmType, handleProcess, processList }) => {
             algorithmType={algorithmType}
             handleProcess={handleProcess}
         />
-        <div className="processTableContainer">
-          <SRTFTable queue={true_final_array} />
-        </div>
+          {/*{processList.length > 0 && (*/}
+          {/*    <div className="customTableContainer alignCenter">*/}
+          {/*        <ResultTable resultList={result_list} />*/}
+          {/*    </div>*/}
+          {/*)}*/}
+          {true_final_array.length > 0 && (
+              <div className="processTableContainer">
+                  <SRTFTable queue={true_final_array} />
+              </div>
+          )}
+
       </div>
   );
 };
