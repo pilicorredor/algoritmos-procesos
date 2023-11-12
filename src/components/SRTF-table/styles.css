@@ -1,0 +1,20 @@
+.SRTF-Table{
+    background-color: rgb(45, 117, 117); 
+}
+
+.box-container {
+    display: flex;
+    flex-direction: row; /* Stack boxes vertically */
+    align-items: flex-end; /* Align boxes to the right */
+  }
+
+  /* Style for each box */
+  .box {
+    width: 100px;
+    height: 50px;
+    background-color: rgb(99, 86, 181);
+    border: 1px solid #ccc;
+    margin-bottom: 10px; /* Spacing between boxes */
+    text-align: center;
+    line-height: 50px;
+  }

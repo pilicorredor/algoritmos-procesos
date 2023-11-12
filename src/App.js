@@ -44,6 +44,13 @@ function App() {
 
   const shortestTimeFirstFields = [
     { nameField: 'Nombre', typeField: 'Text' },
+    { nameField: 'Tiempo de ingreso', typeField: 'number' },
+    { nameField: 'Tiempo de ejecución', typeField: 'number' },
+  ];
+
+  const ShortestJobFirstFields = [
+    { nameField: 'Nombre', typeField: 'Text' },
+    { nameField: 'Tiempo de ingreso', typeField: 'number' },
     { nameField: 'Tiempo de ejecución', typeField: 'number' },
   ];
 
@@ -53,35 +60,29 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/algoritmos-procesos/" element={<Home />} />
-          <Route
-            path="/algoritmos-procesos/Round_Robin"
-            element={
-              <AlgorithmRR
-                formFields={roundRobinFields}
-                algorithmType={ABBREVIATED_ALGORITHMS.ROUND_ROBIN_ALGORITHM}
-                handleProcess={(list) => setProcessList(list)}
-                processList={processList}
-                handleQuantum={(quantum) => setQuantum(quantum)}
-                quantum={quantum}
-              />
-            }
-          />
-          <Route path="/algoritmos-procesos/SJF" element={<AlgorithmSJF />} />
-          <Route
-            path="/algoritmos-procesos/SRTF"
-            element={<AlgorithmSRTF formFields={shortestTimeFirstFields} />}
-          />
-          <Route
-            path="/algoritmos-procesos/FCFS"
-            element={
-              <AlgorithmFCFS
-                formFields={FCFSFields}
-                algorithmType={ABBREVIATED_ALGORITHMS.FCFS_ALGORITHM}
-                handleProcess={(list) => setProcessList(list)}
-                processList={processList}
-              />
-            }
-          />
+          <Route path="/algoritmos-procesos/Round_Robin" element={<AlgorithmRR
+            formFields={roundRobinFields}
+            algorithmType={ABBREVIATED_ALGORITHMS.ROUND_ROBIN_ALGORITHM}
+            handleProcess={(list) => setProcessList(list)}
+            processList={processList}
+            handleQuantum={(quantum) => setQuantum(quantum)}
+            quantum={quantum} />} />
+          <Route path="/algoritmos-procesos/SJF" element={<AlgorithmSJF
+            formFields={ShortestJobFirstFields}
+            algorithmType={ABBREVIATED_ALGORITHMS.SRTF_ALGORITHM}
+            handleProcess={(list) => setProcessList(list)}
+            processList={processList} />} />
+
+          <Route path="/algoritmos-procesos/SRTF" element={<AlgorithmSRTF
+            formFields={shortestTimeFirstFields}
+            algorithmType={ABBREVIATED_ALGORITHMS.SRTF_ALGORITHM}
+            handleProcess={(list) => setProcessList(list)}
+            processList={processList} />} />
+          <Route path="/algoritmos-procesos/FCFS" element={<AlgorithmFCFS
+            formFields={FCFSFields}
+            algorithmType={ABBREVIATED_ALGORITHMS.FCFS_ALGORITHM}
+            handleProcess={(list) => setProcessList(list)}
+            processList={processList} />} />
         </Routes>
       </BrowserRouter>
     </div>

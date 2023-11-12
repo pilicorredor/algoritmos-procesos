@@ -9,6 +9,7 @@ import "./styles.css";
 
 let global_time = 0;
 let queue = new Queue();
+
 const round_robin_details = {
   title: "Algoritmo Round Robin",
   imageUrl: images.round_robin,
@@ -40,14 +41,8 @@ const round_robin_details = {
     "https://www.youtube.com/embed/mY_cO0NhlCw?si=dsuQ2k19A2AjTImn",
 };
 
-const RoundRobin = ({
-  formFields,
-  algorithmType,
-  handleProcess,
-  processList,
-  handleQuantum,
-  quantum,
-}) => {
+const RoundRobin = ({ formFields, algorithmType, handleProcess, processList, handleQuantum, quantum,}) => {
+
   let n = 0;
   quantum = parseInt(quantum);
   const processes_copy = structuredClone(processList);
@@ -105,10 +100,10 @@ const RoundRobin = ({
   //Funcion para actualizar los detalles de cada proceso, como el tiempo final, tiempo de espera, tiempo de retorno...
   const update_details = (current_process, global_time) => {
     current_process.finish_time = parseInt(
-      global_time + current_process.execution_time - 1
+        global_time + current_process.execution_time - 1
     );
     current_process.return_time = parseInt(
-      current_process.finish_time - current_process.arrival_time + 1
+        current_process.finish_time - current_process.arrival_time + 1
     );
     if (current_process.start_time === null) {
       parseInt((current_process.start_time = global_time));
@@ -116,7 +111,7 @@ const RoundRobin = ({
     for (let index = 0; index < processes_copy.length; index++) {
       if (processes_copy[index].process_name === current_process.process_name) {
         current_process.waiting_time = parseInt(
-          current_process.return_time - processList[index].execution_time
+            current_process.return_time - processList[index].execution_time
         );
       }
     }
@@ -151,7 +146,7 @@ const RoundRobin = ({
     for (let index = 0; index < result_colors.length; index++) {
       for (let j = 0; j < processes_copy.length; j++) {
         if (
-          result_colors[index].process_name === processes_copy[j].process_name
+            result_colors[index].process_name === processes_copy[j].process_name
         ) {
           for (let k = processes_copy[j].arrival_time; k > 0; k--) {
             result_colors[index].colors[k - 1] = black;
@@ -207,7 +202,7 @@ const RoundRobin = ({
       if (processes_copy[index].execution_time === 0) {
         for (let i = 0; i < result_colors.length; i++) {
           if (
-            result_colors[i].process_name === processes_copy[index].process_name
+              result_colors[i].process_name === processes_copy[index].process_name
           ) {
             update_color_last_green(result_colors[i], green);
           }
