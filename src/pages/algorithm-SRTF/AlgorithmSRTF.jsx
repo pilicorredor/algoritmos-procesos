@@ -7,7 +7,6 @@ import "./styles.css";
 
 
 let executionOrder = [];
-let remainingProcesses = [];
 
 const srtf_details = {
   title: "Algoritmo Shortest Remaining Time First",
@@ -38,7 +37,6 @@ const SRTF = ({ formFields, algorithmType, handleProcess, processList }) => {
 
   function shortestRemainingTimeFirst(processes) {
 
-    
     let processesCopy = processes.slice(); // Create a copy of the processes array to avoid modifying the original
     console.log(processesCopy)
     
