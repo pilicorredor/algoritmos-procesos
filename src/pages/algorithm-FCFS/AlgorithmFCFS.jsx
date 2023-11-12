@@ -1,3 +1,4 @@
+
 import React from "react";
 import ProcessInput from "../../components/process-input/ProcessInput";
 import DescriptionCard from "../../components/description-card/DescriptionCard";
@@ -5,32 +6,36 @@ import { images } from "../../images";
 import "./styles.css";
 
 const fcfs_details = {
-  title: "Algoritmo First Come - First Served",
+  title: 'Algoritmo First Come - First Served',
   imageUrl: images.fcfs,
   description: (
     <div>
-      En esta, el procesador ejecuta cada proceso
-      hasta que termina, por tanto, los procesos que en cola de procesos
-      preparados permanecerán encolados en el orden en que lleguen hasta que les
-      toque su ejecución. Este método se conoce también como fifo (fist input,
-      first output, primero en llegar primero en salir). Se trata de una
-      política muy simple y sencilla de llevar a la práctica, pero muy pobre en
-      cuanto a su comportamiento. La cantidad de tiempo de espera de cada
-      proceso depende del número de procesos que se encuentren en la cola en el
-      momento de su petición de ejecución y del tiempo que cada uno de ellos
-      tenga en uso al procesador, y es independiente de las necesidades del
-      propio proceso
+      En esta, el procesador ejecuta cada proceso hasta que termina, por tanto,
+      los procesos que en cola de procesos preparados permanecerán encolados en
+      el orden en que lleguen hasta que les toque su ejecución. Este método se
+      conoce también como fifo (fist input, first output, primero en llegar
+      primero en salir). Se trata de una política muy simple y sencilla de
+      llevar a la práctica, pero muy pobre en cuanto a su comportamiento. La
+      cantidad de tiempo de espera de cada proceso depende del número de
+      procesos que se encuentren en la cola en el momento de su petición de
+      ejecución y del tiempo que cada uno de ellos tenga en uso al procesador, y
+      es independiente de las necesidades del propio proceso
       <h5>Características:</h5>
       <ul>
         <li>No apropiativa.</li>
-        <li>Es justa, aunque los procesos largos hacen esperar mucho a los cortos.</li>
+        <li>
+          Es justa, aunque los procesos largos hacen esperar mucho a los cortos.
+        </li>
         <li>Predecible.</li>
-        <li>El tiempo medio de servicio es muy variable en función del número de procesos y su duración.</li>
+        <li>
+          El tiempo medio de servicio es muy variable en función del número de
+          procesos y su duración.
+        </li>
       </ul>
     </div>
   ),
   videoEmbedCode:
-    "https://www.youtube.com/embed/mY_cO0NhlCw?si=dsuQ2k19A2AjTImn",
+    'https://www.youtube.com/embed/mY_cO0NhlCw?si=dsuQ2k19A2AjTImn',
 };
 
 
@@ -115,6 +120,7 @@ function firstComeFirstServeAlgorithm() {
 
 firstComeFirstServeAlgorithm();
 
+
 const FCFS = ({
   formFields,
   algorithmType,
@@ -124,6 +130,7 @@ const FCFS = ({
 }) => {
 
   console.log(processList)
+
   // la lista de procesos que necesitas es la que está entrando acá como parámetro processList
   return (
     <div>

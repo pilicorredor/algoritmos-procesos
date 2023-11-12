@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 // Styles
-import './styles.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import "./styles.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 // Constants
-import { ABBREVIATED_ALGORITHMS } from '../../constants/constants';
+import { ABBREVIATED_ALGORITHMS } from "../../constants/constants";
 // Components
-import NeonButton from '../neon-button/NeonButton';
+import NeonButton from "../neon-button/NeonButton";
 
 const ProcessInput = ({
   formFields,
@@ -13,11 +13,11 @@ const ProcessInput = ({
   handleProcess,
   handleQuantum,
 }) => {
-  const [quantum, setQuantum] = useState('');
-  const [process_name, set_process_name] = useState('');
-  const [arrival_time, set_arrival_time] = useState('');
-  const [execution_time, set_execution_time] = useState('');
-  const [priority, setPriority] = useState('');
+  const [quantum, setQuantum] = useState("");
+  const [process_name, set_process_name] = useState("");
+  const [arrival_time, set_arrival_time] = useState("");
+  const [execution_time, set_execution_time] = useState("");
+  const [priority, setPriority] = useState("");
   const [processes, setProcesses] = useState([]);
   const [detailsEnabled, setDetailsEnabled] = useState(false);
   const [quantumEnabled, setQuantumEnabled] = useState(true);
@@ -35,7 +35,7 @@ const ProcessInput = ({
     if (quantum) {
       setDetailsEnabled(true);
     } else {
-      alert('Por favor, ingrese un quantum válido.');
+      alert("Por favor, ingrese un quantum válido.");
     }
   };
 
@@ -64,17 +64,19 @@ const ProcessInput = ({
 
       if (isRoundRobin || isFCFS) {
         newProcess = { process_name, arrival_time, execution_time };
-      } else if (isSJF) {
-        newProcess = { process_name, execution_time, priority };
+
+      } else if (isFCFS) {
+        newProcess = { process_name, arrival_time, execution_time };
+
       }
 
       setProcesses([...processes, newProcess]);
-      set_process_name('');
-      set_arrival_time('');
-      set_execution_time('');
-      setPriority('');
+      set_process_name("");
+      set_arrival_time("");
+      set_execution_time("");
+      setPriority("");
     } else {
-      alert('Por favor, complete todos los campos obligatorios.');
+      alert("Por favor, complete todos los campos obligatorios.");
     }
   };
 
@@ -85,6 +87,7 @@ const ProcessInput = ({
 
   const handleClearProcesses = () => {
     setProcesses([]);
+    handleProcess([]);
   };
 
   const handleExecuteProcesses = () => {
@@ -119,13 +122,13 @@ const ProcessInput = ({
             onChange={handleQuantumChange}
             className="customInput"
           />
-          <NeonButton buttonFunction={handleAddQuantum} label={'Ingresar'} />
+          <NeonButton buttonFunction={handleAddQuantum} label={"Ingresar"} />
         </div>
       )}
       {detailsEnabled && (
         <div className="input-box">
           {formFields.map((field, index) => (
-            <div key = {index} className="input-content">
+            <div key={index} className="input-content">
               <label className="inputLabel">{field.nameField}</label>
               <input
                 key={index}
@@ -133,20 +136,20 @@ const ProcessInput = ({
                 // placeholder={field.nameField}
                 className="customInput"
                 value={
-                  field.nameField === 'Nombre'
+                  field.nameField === "Nombre"
                     ? process_name
-                    : field.nameField === 'Tiempo de ingreso'
+                    : field.nameField === "Tiempo de ingreso"
                     ? arrival_time
-                    : field.nameField === 'Tiempo de ejecución'
+                    : field.nameField === "Tiempo de ejecución"
                     ? execution_time
                     : priority
                 }
                 onChange={
-                  field.nameField === 'Nombre'
+                  field.nameField === "Nombre"
                     ? handleNameChange
-                    : field.nameField === 'Tiempo de ingreso'
+                    : field.nameField === "Tiempo de ingreso"
                     ? handleArrivalTimeChange
-                    : field.nameField === 'Tiempo de ejecución'
+                    : field.nameField === "Tiempo de ejecución"
                     ? handleExecutionTimeChange
                     : handlePriorityChange
                 }
@@ -155,7 +158,7 @@ const ProcessInput = ({
           ))}
           <NeonButton
             buttonFunction={handleAddProcess}
-            label={'Ingresar proceso'}
+            label={"Ingresar proceso"}
           />
         </div>
       )}
@@ -176,9 +179,10 @@ const ProcessInput = ({
               {processes.map((process, index) => (
                 <tr key={index}>
                   <td>{process.process_name}</td>
-                  {isRoundRobin && <td>{process.arrival_time}</td>}
+                  {(isRoundRobin || isFCFS) && <td>{process.arrival_time}</td>}
                   <td>{process.execution_time}</td>
                   {isFCFS && <td>{process.arrival_time}</td>}
+
                   <td className="trashCell">
                     <i
                       className="bi bi-trash-fill trashIcon"
