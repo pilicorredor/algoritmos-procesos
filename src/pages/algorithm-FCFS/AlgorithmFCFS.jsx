@@ -40,21 +40,20 @@ const fcfs_details = {
 
 
 
-function getProcessData() {
+function getProcessData(processList) {
 
-  //datos quemados
-  //mandar lista con objetos (proceso con numero, tiempo de ejecucion, tiempo de llegada)
-  const numberOfProcess = 3;
-  const burstTime = [20,4,3]; 
-  const arrivalTime = [0,1,3];
-  const processId = [];
+  const numberOfProcess = processList.length;
+  const processId =  Array.from(processList, process => process.process_name);
+  const arrivalTime = Array.from(processList, process => process.arrival_time);
+  const executionTime =  Array.from(processList, process => process.execution_time); 
+
   let st = "P";
 
   for (let i = 0; i < numberOfProcess; i++) {
     processId[i] = st + i;
   }
 
-  return { numberOfProcess, processId, burstTime, arrivalTime };
+  return { numberOfProcess, processId, burstTime: executionTime, arrivalTime };
 }
 
 function sortAccordingArrivalTime(at, bt, pid) {
@@ -75,8 +74,8 @@ function sortAccordingArrivalTime(at, bt, pid) {
   }
 }
 
-function firstComeFirstServeAlgorithm() {
-  const { numberOfProcess, processId, burstTime, arrivalTime } = getProcessData();
+function firstComeFirstServeAlgorithm(processList) {
+  const { numberOfProcess, processId, burstTime, arrivalTime } = getProcessData(processList);
 
   let finishTime = new Array(numberOfProcess).fill(0);
   let bt = burstTime.slice();
@@ -118,8 +117,6 @@ function firstComeFirstServeAlgorithm() {
   console.log("Promedio tiempo de respuesta:", averageTurnAroundTime)
 }
 
-firstComeFirstServeAlgorithm();
-
 
 const FCFS = ({
   formFields,
@@ -128,8 +125,8 @@ const FCFS = ({
   processList,
   handleQuantum,
 }) => {
-
   console.log(processList)
+  firstComeFirstServeAlgorithm(processList)
 
   // la lista de procesos que necesitas es la que está entrando acá como parámetro processList
   return (
