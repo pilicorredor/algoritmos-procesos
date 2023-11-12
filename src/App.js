@@ -38,8 +38,8 @@ function App() {
   // Estos son los campos para FCFS
   const FCFSFields = [
     { nameField: 'Nombre', typeField: 'Text' },
+    { nameField: 'Tiempo de ingreso', typeField: 'number' },
     { nameField: 'Tiempo de ejecución', typeField: 'number' },
-    { nameField: 'Prioridad', typeField: 'number' },
   ];
 
   const shortestTimeFirstFields = [
