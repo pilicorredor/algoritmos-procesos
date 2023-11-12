@@ -41,7 +41,6 @@ const fcfs_details = {
 
 
 function getProcessData(processList) {
-  console.log(processList)
   const numberOfProcess = processList.length;
   const processId =  Array.from(processList, process => process.process_name);
   const arrivalTime = Array.from(processList, process => process.arrival_time);
@@ -104,21 +103,20 @@ function firstComeFirstServeAlgorithm(processList) {
 
   const results = []
 
-
-  
-  console.log("FCFS Scheduling Algorithm : ");
-  console.log(
-//    "ProcessId   BurstTime   ArrivalTime   FinishTime   WaitingTime   TurnAroundTime"
-    "PId           BT           AT          FT          WT         TAT"
-  );
-
   for (let i = 0; i < numberOfProcess; i++) {
-    console.log(
-      `${pid[i]}             ${bt[i]}            ${at[i]}          ${finishTime[i]}           ${waitingTime[i]}         ${turnAroundTime[i]}`
-    );
+    results.push({
+      processId: pid[i],
+      burstTime: bt[i],
+      arrivalTime: at[i],
+      finishTime: finishTime[i],
+      waitingTime: waitingTime[i],
+      turnAroundTime: turnAroundTime[i],
+      averageWaitingTime: averageWaitingTime,
+      averageTurnAroundTime: averageTurnAroundTime,
+    });
   }
-  console.log("Promedio tiempo de espera:", averageWaitingTime);
-  console.log("Promedio tiempo de respuesta:", averageTurnAroundTime)
+
+  return results
 }
 
 const FCFS = ({
@@ -128,8 +126,8 @@ const FCFS = ({
   processList,
   handleQuantum,
 }) => {
-  console.log(processList)
-  firstComeFirstServeAlgorithm(processList)
+  const results = firstComeFirstServeAlgorithm(processList)
+  console.log(results)
 
   // la lista de procesos que necesitas es la que está entrando acá como parámetro processList
   return (
