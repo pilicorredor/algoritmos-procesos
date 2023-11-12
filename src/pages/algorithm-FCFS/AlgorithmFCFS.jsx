@@ -38,9 +38,7 @@ const fcfs_details = {
     'https://www.youtube.com/embed/mY_cO0NhlCw?si=dsuQ2k19A2AjTImn',
 };
 
-
-
-function getProcessData(processList) {
+const getProcessData = (processList) => {
   const numberOfProcess = processList.length;
   const processId =  Array.from(processList, process => process.process_name);
   const arrivalTime = Array.from(processList, process => process.arrival_time);
@@ -55,7 +53,7 @@ function getProcessData(processList) {
   return { numberOfProcess, processId, burstTime: executionTime, arrivalTime };
 }
 
-function sortAccordingArrivalTime(at, bt, pid) {
+const sortAccordingArrivalTime = (at, bt, pid) => {
   let swapped;
   for (let i = 0; i < at.length; i++) {
     swapped = false;
@@ -73,7 +71,7 @@ function sortAccordingArrivalTime(at, bt, pid) {
   }
 }
 
-function firstComeFirstServeAlgorithm(processList) {
+const firstComeFirstServeAlgorithm = (processList) => {
   const { numberOfProcess, processId, burstTime, arrivalTime } = getProcessData(processList);
 
   let finishTime = new Array(numberOfProcess).fill(0);
@@ -118,6 +116,9 @@ function firstComeFirstServeAlgorithm(processList) {
 
   return results
 }
+
+
+
 
 const FCFS = ({
   formFields,
