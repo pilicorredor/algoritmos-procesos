@@ -20,13 +20,6 @@ const cards = [
     buttonLabel: 'Ingresar',
   },
   {
-    imageUrl: images.sjf,
-    title: 'Algoritmo SJF',
-    link: '/algoritmos-procesos/SJF',
-    description: '',
-    buttonLabel: 'Ingresar',
-  },
-  {
     imageUrl: images.srtf,
     title: 'Algoritmo SRTF',
     link: '/algoritmos-procesos/SRTF',

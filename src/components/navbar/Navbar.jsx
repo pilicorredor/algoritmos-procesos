@@ -60,14 +60,6 @@ const Navbar = ({ resetProcessList }) => {
               </NavLink>
               <NavLink
                 className="nav-link"
-                to="/algoritmos-procesos/SJF"
-                onClick={handleProcess}
-              >
-                {' '}
-                Shortest Job First{' '}
-              </NavLink>
-              <NavLink
-                className="nav-link"
                 to="/algoritmos-procesos/SRTF"
                 onClick={handleProcess}
               >

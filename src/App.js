@@ -67,7 +67,6 @@ function App() {
               />
             }
           />
-          <Route path="/algoritmos-procesos/SJF" element={<AlgorithmSJF />} />
           <Route
             path="/algoritmos-procesos/SRTF"
             element={<AlgorithmSRTF formFields={shortestTimeFirstFields} />}
