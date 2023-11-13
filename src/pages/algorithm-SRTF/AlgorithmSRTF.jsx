@@ -71,9 +71,9 @@ const SRTF = ({formFields, algorithmType, handleProcess, processList}) => {
     const update_result_list = () => {
         console.log('CUARTO PASO')
         for (let index = 0; index < processes_copy.length; index++) {
-            result_list[index].finish_time = processes_copy[index].finish_time;
-            result_list[index].return_time = processes_copy[index].finish_time - processes_copy[index].arrival_time; //Turn Around time = Completion time – arrival time
-            result_list[index].waiting_time = processes_copy[index].waiting_time - processes_copy[index].return_time; //Waiting Time = Turn around time – burst time
+            result_list[index].finish_time = processes_copy[index].finish_time+1;
+            result_list[index].return_time = processes_copy[index].finish_time - processes_copy[index].arrival_time+1; //Turn Around time = Completion time – arrival time
+            result_list[index].waiting_time = result_list[index].return_time - processes_copy[index].execution_time; //Waiting Time = Turn around time – burst time
             result_list[index].start_time = processes_copy[index].start_time;
         }
     };
