@@ -57,7 +57,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        <Navbar resetProcessList={(emptyList) => setProcessList(emptyList)} />
         <Routes>
           <Route path="/algoritmos-procesos/" element={<Home />} />
           <Route path="/algoritmos-procesos/Round_Robin" element={<AlgorithmRR

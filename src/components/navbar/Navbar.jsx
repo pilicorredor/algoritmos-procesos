@@ -2,7 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
-function Navbar() {
+const Navbar = ({ resetProcessList }) => {
+  const handleProcess = () => {
+    resetProcessList([]);
+  };
   return (
     <>
       <nav
@@ -11,7 +14,11 @@ function Navbar() {
         //style={{ height: '80px' }}
       >
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/algoritmos-procesos/">
+          <Link
+            className="navbar-brand"
+            to="/algoritmos-procesos/"
+            onClick={handleProcess}
+          >
             SimuSchedule
           </Link>
           <button
@@ -27,26 +34,43 @@ function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
-              <NavLink className="nav-link" to="/algoritmos-procesos/">
+              <NavLink
+                className="nav-link"
+                to="/algoritmos-procesos/"
+                onClick={handleProcess}
+              >
                 {' '}
                 Inicio{' '}
               </NavLink>
               <NavLink
                 className="nav-link"
                 to="/algoritmos-procesos/Round_Robin"
+                onClick={handleProcess}
               >
                 {' '}
                 Round Robin{' '}
               </NavLink>
-              <NavLink className="nav-link" to="/algoritmos-procesos/FCFS">
+              <NavLink
+                className="nav-link"
+                to="/algoritmos-procesos/FCFS"
+                onClick={handleProcess}
+              >
                 {' '}
                 First-come First-Served{' '}
               </NavLink>
-              <NavLink className="nav-link" to="/algoritmos-procesos/SJF">
+              <NavLink
+                className="nav-link"
+                to="/algoritmos-procesos/SJF"
+                onClick={handleProcess}
+              >
                 {' '}
                 Shortest Job First{' '}
               </NavLink>
-              <NavLink className="nav-link" to="/algoritmos-procesos/SRTF">
+              <NavLink
+                className="nav-link"
+                to="/algoritmos-procesos/SRTF"
+                onClick={handleProcess}
+              >
                 {' '}
                 Short Remaining Time First
               </NavLink>
@@ -56,6 +80,6 @@ function Navbar() {
       </nav>
     </>
   );
-}
+};
 
 export default Navbar;

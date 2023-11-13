@@ -62,12 +62,11 @@ const ProcessInput = ({
     if (process_name && execution_time) {
       let newProcess = {};
 
-      if (isRoundRobin) {
+      if (isRoundRobin || isFCFS) {
         newProcess = { process_name, arrival_time, execution_time };
+
       } else if (isFCFS) {
         newProcess = { process_name, arrival_time, execution_time };
-      }else if(isSRTF){
-        newProcess = {process_name, arrival_time, execution_time }
       }
 
       setProcesses([...processes, newProcess]);
@@ -181,6 +180,7 @@ const ProcessInput = ({
                   <td>{process.process_name}</td>
                   {(isRoundRobin || isFCFS || isSRTF) && <td>{process.arrival_time}</td>}
                   <td>{process.execution_time}</td>
+
                   <td className="trashCell">
                     <i
                       className="bi bi-trash-fill trashIcon"
