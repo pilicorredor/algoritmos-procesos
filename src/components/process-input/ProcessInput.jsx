@@ -181,7 +181,6 @@ const ProcessInput = ({
                   <td>{process.process_name}</td>
                   {(isRoundRobin || isFCFS) && <td>{process.arrival_time}</td>}
                   <td>{process.execution_time}</td>
-                  {isFCFS && <td>{process.arrival_time}</td>}
 
                   <td className="trashCell">
                     <i

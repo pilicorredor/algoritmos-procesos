@@ -1,10 +1,9 @@
-
-import React from "react";
-import ProcessInput from "../../components/process-input/ProcessInput";
-import DescriptionCard from "../../components/description-card/DescriptionCard";
-import { images } from "../../images";
-import FCFS_ResultTable from "../../components/result-table/FCFS_ResultTable";
-import "./styles.css";
+import React from 'react';
+import ProcessInput from '../../components/process-input/ProcessInput';
+import DescriptionCard from '../../components/description-card/DescriptionCard';
+import { images } from '../../images';
+import FCFS_ResultTable from '../../components/result-table/FCFS_ResultTable';
+import './styles.css';
 
 const fcfs_details = {
   title: 'Algoritmo First Come - First Served',
@@ -36,7 +35,7 @@ const fcfs_details = {
     </div>
   ),
   videoEmbedCode:
-    'https://www.youtube.com/watch?v=KdPiJHhrEzU',
+    'https://www.youtube.com/embed/KdPiJHhrEzU?si=ZqqP38lm8V8VBdnv',
 };
 
 const FCFS = ({
@@ -48,18 +47,27 @@ const FCFS = ({
 }) => {
   const getProcessData = () => {
     const numberOfProcess = processList.length;
-    const processId = Array.from(processList, process => process.process_name);
-    const arrivalTime = Array.from(processList, process => process.arrival_time);
-    const executionTime = Array.from(processList, process => process.execution_time);
 
-    let st = "P";
+    const processId = Array.from(
+      processList,
+      (process) => process.process_name
+    );
+    const arrivalTime = Array.from(
+      processList,
+      (process) => process.arrival_time
+    );
+    const executionTime = Array.from(
+      processList,
+      (process) => process.execution_time
+    );
 
-    for (let i = 0; i < numberOfProcess; i++) {
-      processId[i] = st + i;
-    }
-
-    return { numberOfProcess, processId, burstTime: executionTime, arrivalTime };
-  }
+    return {
+      numberOfProcess,
+      processId,
+      burstTime: executionTime,
+      arrivalTime,
+    };
+  };
 
   const sortAccordingArrivalTime = (at, bt, pid) => {
     let swapped;
@@ -77,10 +85,10 @@ const FCFS = ({
         break;
       }
     }
-  }
+  };
 
-
-  const { numberOfProcess, processId, burstTime, arrivalTime } = getProcessData();
+  const { numberOfProcess, processId, burstTime, arrivalTime } =
+    getProcessData();
 
   let finishTime = new Array(numberOfProcess).fill(0);
   let bt = burstTime.slice();
@@ -101,8 +109,7 @@ const FCFS = ({
     waitingTime[i] = turnAroundTime[i] - bt[i];
   }
 
-  const results = []
-
+  const results = [];
   for (let i = 0; i < numberOfProcess; i++) {
     results.push({
       process_name: pid[i],
@@ -113,8 +120,6 @@ const FCFS = ({
       waiting_time: waitingTime[i],
     });
   }
-
-  console.log(results)
 
   return (
     <div>
