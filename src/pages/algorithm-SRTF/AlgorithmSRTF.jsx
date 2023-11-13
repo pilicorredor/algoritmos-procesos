@@ -168,9 +168,9 @@ const SRTF = ({formFields, algorithmType, handleProcess, processList}) => {
                     <ResultTable resultList={result_list}/>
                 </div>
             )}
-            {/*<div className="processTableContainer">*/}
-            {/*    <SRTFTable queue={final_array} />*/}
-            {/*</div>*/}
+            <div className="processTableContainer">
+                <SRTFTable queue={executionOrder} />
+            </div>
 
         </div>
     );
