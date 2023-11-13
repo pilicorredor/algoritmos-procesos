@@ -3,6 +3,7 @@ import React from "react";
 import ProcessInput from "../../components/process-input/ProcessInput";
 import DescriptionCard from "../../components/description-card/DescriptionCard";
 import { images } from "../../images";
+import FCFS_ResultTable from "../../components/result-table/FCFS_ResultTable";
 import "./styles.css";
 
 const fcfs_details = {
@@ -35,44 +36,51 @@ const fcfs_details = {
     </div>
   ),
   videoEmbedCode:
-    'https://www.youtube.com/embed/mY_cO0NhlCw?si=dsuQ2k19A2AjTImn',
+    'https://www.youtube.com/watch?v=KdPiJHhrEzU',
 };
 
-const getProcessData = (processList) => {
-  const numberOfProcess = processList.length;
-  const processId =  Array.from(processList, process => process.process_name);
-  const arrivalTime = Array.from(processList, process => process.arrival_time);
-  const executionTime =  Array.from(processList, process => process.execution_time); 
+const FCFS = ({
+  formFields,
+  algorithmType,
+  handleProcess,
+  processList,
+  handleQuantum,
+}) => {
+  const getProcessData = () => {
+    const numberOfProcess = processList.length;
+    const processId = Array.from(processList, process => process.process_name);
+    const arrivalTime = Array.from(processList, process => process.arrival_time);
+    const executionTime = Array.from(processList, process => process.execution_time);
 
-  let st = "P";
+    let st = "P";
 
-  for (let i = 0; i < numberOfProcess; i++) {
-    processId[i] = st + i;
+    for (let i = 0; i < numberOfProcess; i++) {
+      processId[i] = st + i;
+    }
+
+    return { numberOfProcess, processId, burstTime: executionTime, arrivalTime };
   }
 
-  return { numberOfProcess, processId, burstTime: executionTime, arrivalTime };
-}
-
-const sortAccordingArrivalTime = (at, bt, pid) => {
-  let swapped;
-  for (let i = 0; i < at.length; i++) {
-    swapped = false;
-    for (let j = 0; j < at.length - i - 1; j++) {
-      if (at[j] > at[j + 1]) {
-        [at[j], at[j + 1]] = [at[j + 1], at[j]];
-        [bt[j], bt[j + 1]] = [bt[j + 1], bt[j]];
-        [pid[j], pid[j + 1]] = [pid[j + 1], pid[j]];
-        swapped = true;
+  const sortAccordingArrivalTime = (at, bt, pid) => {
+    let swapped;
+    for (let i = 0; i < at.length; i++) {
+      swapped = false;
+      for (let j = 0; j < at.length - i - 1; j++) {
+        if (at[j] > at[j + 1]) {
+          [at[j], at[j + 1]] = [at[j + 1], at[j]];
+          [bt[j], bt[j + 1]] = [bt[j + 1], bt[j]];
+          [pid[j], pid[j + 1]] = [pid[j + 1], pid[j]];
+          swapped = true;
+        }
+      }
+      if (!swapped) {
+        break;
       }
     }
-    if (!swapped) {
-      break;
-    }
   }
-}
 
-const firstComeFirstServeAlgorithm = (processList) => {
-  const { numberOfProcess, processId, burstTime, arrivalTime } = getProcessData(processList);
+
+  const { numberOfProcess, processId, burstTime, arrivalTime } = getProcessData();
 
   let finishTime = new Array(numberOfProcess).fill(0);
   let bt = burstTime.slice();
@@ -93,44 +101,21 @@ const firstComeFirstServeAlgorithm = (processList) => {
     waitingTime[i] = turnAroundTime[i] - bt[i];
   }
 
-  const sum = waitingTime.reduce((acc, n) => acc + n, 0);
-  const averageWaitingTime = sum / numberOfProcess;
-
-  const sum2 = turnAroundTime.reduce((acc, n) => acc + n, 0);
-  const averageTurnAroundTime = sum2 / numberOfProcess;
-
   const results = []
 
   for (let i = 0; i < numberOfProcess; i++) {
     results.push({
-      processId: pid[i],
-      burstTime: bt[i],
-      arrivalTime: at[i],
-      finishTime: finishTime[i],
-      waitingTime: waitingTime[i],
-      turnAroundTime: turnAroundTime[i],
-      averageWaitingTime: averageWaitingTime,
-      averageTurnAroundTime: averageTurnAroundTime,
+      process_name: pid[i],
+      arrival_time: at[i],
+      execution_time: bt[i],
+      turn_around_time: turnAroundTime[i],
+      finish_time: finishTime[i],
+      waiting_time: waitingTime[i],
     });
   }
 
-  return results
-}
-
-
-
-
-const FCFS = ({
-  formFields,
-  algorithmType,
-  handleProcess,
-  processList,
-  handleQuantum,
-}) => {
-  const results = firstComeFirstServeAlgorithm(processList)
   console.log(results)
 
-  // la lista de procesos que necesitas es la que está entrando acá como parámetro processList
   return (
     <div>
       <div className="fcfsCardContainer">
@@ -147,6 +132,11 @@ const FCFS = ({
         handleProcess={handleProcess}
         handleQuantum={handleQuantum}
       />
+      {processList.length > 0 && (
+        <div className="customTableContainer alignCenter">
+          <FCFS_ResultTable resultList={results} />
+        </div>
+      )}
     </div>
   );
 };
