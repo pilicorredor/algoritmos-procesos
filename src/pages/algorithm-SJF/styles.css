@@ -1,0 +1,71 @@
+.allSectionInfo{
+    background-color: inherit;
+    position: fixed;
+    width: 100%; /*esto hace que cubra everything y no se vea ese feo cosito blanco*/
+    height: 95%;
+    overflow: auto;
+    color: rgb(255, 255, 255);
+}
+.sectionTitle{
+    color: #ef0000;
+}
+.content{
+    background-color: rgba(86, 95, 105, 0.348);
+    display: flex; /*contiene a planContent y Simulation*/
+}
+.sectionDescription{
+    font-weight: 500;
+    width: 50%;
+}
+.planContent{
+    overflow: auto;
+}
+.simulationContainer{ /*Este otro flex container*/
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: inherit;
+    padding: 10px;
+}
+.flex-container{
+    flex: 1;
+}
+.textInformation{
+    background-color: rgb(27, 150, 187);
+    margin: 10px;
+}
+.executionTimes{
+    background-color: bisque;
+    flex: 1;
+}
+
+.times{
+    background-color: #12ff00;
+
+}
+.row{
+    background-color: #12ff00;
+}
+.time{
+    background-color: #1f5c6d;
+}
+
+.simulationSRTF{
+    background-color: yellow;
+
+}
+.processStack{
+    background-color: green;
+}
+.timeRemaining{
+    background-color: rgb(178, 178, 178);
+}
+.labelInfo{
+    background-color: blueviolet;
+}
+.finished{
+    background-color: #12ff00;
+}
+.simulationButton{
+    background-color: yellow;
+}
