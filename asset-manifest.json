@@ -1,15 +1,29 @@
 {
   "files": {
-    "main.css": "/algoritmos-procesos/static/css/main.1201ee62.css",
-    "main.js": "/algoritmos-procesos/static/js/main.d12736c0.js",
+    "main.css": "/algoritmos-procesos/static/css/main.0ef78021.css",
+    "main.js": "/algoritmos-procesos/static/js/main.3b18442a.js",
     "static/js/787.c5ac4e1a.chunk.js": "/algoritmos-procesos/static/js/787.c5ac4e1a.chunk.js",
+    "static/media/portatil.avif": "/algoritmos-procesos/static/media/portatil.bdb304890554f0626c69.avif",
+    "static/media/codeScreen.avif": "/algoritmos-procesos/static/media/codeScreen.6a9e3d223eeb28681140.avif",
+    "static/media/bootstrap-icons.woff?": "/algoritmos-procesos/static/media/bootstrap-icons.449ad8adf6ae0424b7ed.woff",
+    "static/media/figure2.avif": "/algoritmos-procesos/static/media/figure2.065ca9353f25defb5d85.avif",
+    "static/media/bootstrap-icons.woff2?": "/algoritmos-procesos/static/media/bootstrap-icons.dea24bf5a7646d8b84e7.woff2",
+    "static/media/figure3.avif": "/algoritmos-procesos/static/media/figure3.540089a5f04ee4ce5910.avif",
+    "static/media/srtf.jpg": "/algoritmos-procesos/static/media/srtf.6e3744cf10bd6a9fcd60.jpg",
+    "static/media/figure1.avif": "/algoritmos-procesos/static/media/figure1.5610d9216112802cd2bd.avif",
+    "static/media/figure4.avif": "/algoritmos-procesos/static/media/figure4.2de4e5fd7e736b9eda92.avif",
+    "static/media/os.jpg": "/algoritmos-procesos/static/media/os.dd97a6dcca1b6f6aa341.jpg",
+    "static/media/fcfs.jpg": "/algoritmos-procesos/static/media/fcfs.f15a5ef485af99c69c32.jpg",
+    "static/media/sjf.jpg": "/algoritmos-procesos/static/media/sjf.a071624fca694992b60a.jpg",
+    "static/media/round_robin.jpg": "/algoritmos-procesos/static/media/round_robin.af1140964e5d8a11050e.jpg",
+    "static/media/planification.jpg": "/algoritmos-procesos/static/media/planification.35f3422098388549503b.jpg",
     "index.html": "/algoritmos-procesos/index.html",
-    "main.1201ee62.css.map": "/algoritmos-procesos/static/css/main.1201ee62.css.map",
-    "main.d12736c0.js.map": "/algoritmos-procesos/static/js/main.d12736c0.js.map",
+    "main.0ef78021.css.map": "/algoritmos-procesos/static/css/main.0ef78021.css.map",
+    "main.3b18442a.js.map": "/algoritmos-procesos/static/js/main.3b18442a.js.map",
     "787.c5ac4e1a.chunk.js.map": "/algoritmos-procesos/static/js/787.c5ac4e1a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1201ee62.css",
-    "static/js/main.d12736c0.js"
+    "static/css/main.0ef78021.css",
+    "static/js/main.3b18442a.js"
   ]
 }
