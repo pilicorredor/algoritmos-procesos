@@ -78,14 +78,12 @@ const srtf_details = {
 };
 
 const SRTF = ({ formFields, algorithmType, handleProcess, processList }) => {
-  console.log('Primer Paso');
   let processes_copy = structuredClone(processList);
   let result_list = structuredClone(processList);
   let executionOrder = [];
   let max_loops = 0;
 
   const update_result_list = () => {
-    console.log('CUARTO PASO');
     for (let index = 0; index < processes_copy.length; index++) {
       result_list[index].finish_time = processes_copy[index].finish_time + 1;
       result_list[index].return_time =
@@ -99,7 +97,6 @@ const SRTF = ({ formFields, algorithmType, handleProcess, processList }) => {
   };
 
   function update_finish_time(finished_process_name, globaltime) {
-    console.log('Tercer paso');
     for (let i = 0; i < processes_copy.length; i++) {
       if (processes_copy[i].process_name === finished_process_name) {
         processes_copy[i].finish_time = globaltime;
@@ -118,7 +115,6 @@ const SRTF = ({ formFields, algorithmType, handleProcess, processList }) => {
   }
 
   function shortestRemainingTimeFirst() {
-    console.log('Segundo paso');
     processes_copy.sort((a, b) => {
       if (a.arrival_time !== b.arrival_time) {
         // Sort processes by arrival time and burst time
@@ -129,9 +125,7 @@ const SRTF = ({ formFields, algorithmType, handleProcess, processList }) => {
     });
 
     let currentTime = 0; // Initialize variables
-    console.log(processes_copy);
     let remainingProcesses = structuredClone(processes_copy); // Array to store the order of process execution
-    console.log(remainingProcesses);
     for (let processListElement of processList) {
       max_loops += processListElement.execution_time;
     }
@@ -170,7 +164,6 @@ const SRTF = ({ formFields, algorithmType, handleProcess, processList }) => {
   }
 
   shortestRemainingTimeFirst();
-  console.log('FINAL');
   return (
     <div>
       <div className="srtfCardContainer">
