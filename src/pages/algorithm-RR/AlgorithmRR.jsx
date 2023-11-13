@@ -110,9 +110,7 @@ const RoundRobin = ({ formFields, algorithmType, handleProcess, processList, han
     }
     for (let index = 0; index < processes_copy.length; index++) {
       if (processes_copy[index].process_name === current_process.process_name) {
-        current_process.waiting_time = parseInt(
-            current_process.return_time - processList[index].execution_time
-        );
+        current_process.waiting_time = parseInt(current_process.return_time - processList[index].execution_time);
       }
     }
   };

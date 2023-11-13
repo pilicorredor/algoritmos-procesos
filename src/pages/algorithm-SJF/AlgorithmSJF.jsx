@@ -59,6 +59,8 @@ const SRTF = ({ formFields, algorithmType, handleProcess, processList }) => {
         return result;
     }
 
+
+    
     let true_final_array = final_arrayToTrueFinalArray(array)
 
   return (
